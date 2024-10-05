@@ -5,7 +5,7 @@ namespace Application.DTO;
 
 public class BannerDTO
 {
-    public Guid bannerId { get; set; }
+    public Guid BannerId { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public Guid OwnerId { get; set; }
@@ -17,7 +17,7 @@ public class BannerDTO
         //TODO - implement Banner To BannerDto
         return new Banner()
         {
-            BannerId = new BannerId(bannerId),
+            BannerId = new BannerId(BannerId),
             CategoryId = new CategoryId(CategoryId),
             OwnerId = new UserId(OwnerId),
             CreatedAt = DateTime.Now,
