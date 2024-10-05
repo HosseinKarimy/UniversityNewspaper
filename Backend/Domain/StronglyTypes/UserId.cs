@@ -1,3 +1,13 @@
 ﻿namespace Domain.StronglyTypes;
 
-public record UserId(Guid Value);
+public record UserId
+{
+    public Guid Value { get; set; }
+
+    private UserId(Guid value) => Value = value;
+
+    public static UserId Of(Guid value)
+    {
+        return new UserId(value);
+    }
+}

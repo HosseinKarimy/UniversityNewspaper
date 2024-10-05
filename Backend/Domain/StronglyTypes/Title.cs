@@ -1,3 +1,13 @@
 ﻿namespace Domain.StronglyTypes;
 
-public record Title(string Value);
+public record Title
+{
+    public string Value { get; set; }
+
+    private Title(string value) => Value = value;
+
+    public static Title Of(string value)
+    {
+        return new Title(value);
+    }
+}

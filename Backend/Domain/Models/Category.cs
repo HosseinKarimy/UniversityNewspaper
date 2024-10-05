@@ -1,6 +1,9 @@
-﻿namespace Domain.Models;
+﻿using Domain.StronglyTypes;
+
+namespace Domain.Models;
 
 public class Category
 {
-    public int Id { get; set; }
+    public CategoryId CategoryId { get; set; }
+    public CategoryName CategoryName { get; set; }
 }
