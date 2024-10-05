@@ -14,7 +14,6 @@ public class BannerDTO
 
     public Banner ToBanner()
     {
-        //TODO - implement Banner To BannerDto
         return new Banner()
         {
             BannerId = new BannerId(BannerId),
@@ -24,6 +23,19 @@ public class BannerDTO
             Description = new Description(Description),
             Title = new Title(Title),
             Images = Images.Select(image => new ImageURL(image)).ToList()
+        };
+    }
+
+    public static BannerDTO FromBanner(Banner banner)
+    {
+        return new BannerDTO()
+        {
+            BannerId = banner.BannerId.Value,
+            CategoryId = banner.CategoryId.Value,
+            OwnerId = banner.OwnerId.Value,
+            Description = banner.Description.Value,
+            Title = banner.Title.Value,
+            Images = banner.Images.Select(imageUrl => imageUrl.Value).ToList()
         };
     }
 }

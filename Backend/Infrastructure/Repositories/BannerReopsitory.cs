@@ -10,4 +10,10 @@ public class BannerReopsitory : IBannerRepository
         FakeDataBase.Banners.Add(banner);
         return Task.FromResult(banner);
     }
+
+    public Task<List<Banner>> GetBannerAsync(CancellationToken cancellationToken = default)
+    {
+        var banners = FakeDataBase.Banners.ToList();
+        return Task.FromResult(banners);
+    }
 }
