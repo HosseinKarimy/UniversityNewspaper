@@ -14,12 +14,11 @@ public class AddBannerEndpoint : CarterModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/banner", (AddBannerRequest request, IMediator mediator) =>
+        app.MapPost("/banners", async (AddBannerRequest request, IMediator mediator) =>
         {
-
-            var command = request.Adapt<AddBannerCommand>();
-            var result = mediator.Send(command);
-            var response = result.Adapt<AddBannerResponse>();
+            AddBannerCommand command = request.Adapt<AddBannerCommand>();
+            AddBannerResult result = await mediator.Send(command);
+            AddBannerResponse response = result.Adapt<AddBannerResponse>();
 
             return Results.Ok(response);
         });
