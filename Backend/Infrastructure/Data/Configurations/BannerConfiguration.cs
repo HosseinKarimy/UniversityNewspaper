@@ -32,8 +32,8 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
         builder.Property(p => p.Image)
             .HasConversion(Image => Image.Value, dbImage => ImageURL.Of(dbImage));
 
-        builder.HasOne<User>().WithMany().HasForeignKey(b=>b.OwnerId).IsRequired();
+        builder.HasOne<User>(e=>e.Owner).WithMany().HasForeignKey(b=>b.OwnerId).IsRequired();
 
-        builder.HasOne<Category>().WithMany().HasForeignKey(b => b.CategoryId).IsRequired();
+        builder.HasOne<Category>(e=>e.Category).WithMany().HasForeignKey(b => b.CategoryId).IsRequired();
     }
 }

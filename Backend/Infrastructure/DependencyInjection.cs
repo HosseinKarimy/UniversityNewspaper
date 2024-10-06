@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructureLayerServices(this IServiceCollection services)
     {
         services.AddScoped<IBannerRepository, BannerReopsitory>();
-        services.AddDbContext<AppDbContext>(option => option.UseSqlite("Data Source=C:\\Users\\hossein\\source\\repos\\UniversityBazzar\\Backend\\Infrastructure\\Data.db", b => b.MigrationsAssembly("API")));
+        services.AddDbContext<AppDbContext>(option => option.UseSqlite("Data Source=C:\\Users\\hossein\\source\\repos\\UniversityBazzar\\Backend\\Infrastructure\\Data.db"));
         return services;
     }
 }
