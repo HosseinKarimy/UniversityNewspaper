@@ -1,19 +1,29 @@
 ﻿using Application.BazaarRepositories;
 using Domain.Models;
+using Domain.StronglyTypes;
+using Infrastructure.Data.ApplicaionDbContetxt;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
 public class BannerReopsitory : IBannerRepository
 {
-    public Task<Banner> AddBannerAsync(Banner banner, CancellationToken cancellationToken)
+    private readonly AppDbContext dbContext;
+
+    public BannerReopsitory(AppDbContext dbContext)
     {
-        FakeDataBase.Banners.Add(banner);
-        return Task.FromResult(banner);
+        this.dbContext = dbContext;
+    }
+    public async Task<Banner> AddBannerAsync(Banner banner, CancellationToken cancellationToken)
+    {
+        await dbContext.Banners.AddAsync(banner, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return banner;
     }
 
-    public Task<List<Banner>> GetBannerAsync(CancellationToken cancellationToken = default)
+    public async Task<List<Banner>> GetBannerAsync(CancellationToken cancellationToken = default)
     {
-        var banners = FakeDataBase.Banners.ToList();
-        return Task.FromResult(banners);
+        var banners = await dbContext.Banners.ToListAsync(cancellationToken);
+        return banners;
     }
 }
