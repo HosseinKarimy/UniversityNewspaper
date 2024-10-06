@@ -10,4 +10,8 @@ public record UserId
     {
         return new UserId(value);
     }
+    public static UserId Of(string value)
+    {
+        return new UserId(Guid.Parse(value));
+    }
 }

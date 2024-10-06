@@ -5,24 +5,24 @@ namespace Application.DTO;
 
 public class BannerDTO
 {
-    public Guid bannerId { get; set; }
-    public string title { get; set; }
-    public string description { get; set; }
-    public Guid ownerId { get; set; }
-    public Guid categoryId { get; set; }
-    public string image { get; set; }   
+    public Guid BannerId { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public Guid OwnerId { get; set; }
+    public Guid CategoryId { get; set; }
+    public string Image { get; set; }   
 
     public Banner ToBanner()
     {
         return new Banner()
         {
-            BannerId = BannerId.Of(bannerId),
-            CategoryId =  CategoryId.Of(categoryId),
-            OwnerId =  UserId.Of(ownerId),
+            BannerId = Domain.StronglyTypes.BannerId.Of(BannerId),
+            CategoryId = Domain.StronglyTypes.CategoryId.Of(CategoryId),
+            OwnerId = UserId.Of(OwnerId),
             CreatedAt = DateTime.Now,
-            Description =  Description.Of(description),
-            Title =  Title.Of(title),
-            Image = ImageURL.Of(image)
+            Description = Domain.StronglyTypes.Description.Of(Description),
+            Title = Domain.StronglyTypes.Title.Of(Title),
+            Image = ImageURL.Of(Image)
         };
     }
 
@@ -30,12 +30,12 @@ public class BannerDTO
     {
         return new BannerDTO()
         {
-            bannerId = banner.BannerId.Value,
-            categoryId = banner.CategoryId.Value,
-            ownerId = banner.OwnerId.Value,
-            description = banner.Description.Value,
-            title = banner.Title.Value,
-            image = banner.Image.Value
+            BannerId = banner.BannerId.Value,
+            CategoryId = banner.CategoryId.Value,
+            OwnerId = banner.OwnerId.Value,
+            Description = banner.Description.Value,
+            Title = banner.Title.Value,
+            Image = banner.Image.Value
         };
     }
 }

@@ -1,14 +1,13 @@
 ﻿using Application.BazaarHandlers;
 using Application.DTO;
 using Carter;
-using Domain.Models;
 using Mapster;
 using MediatR;
 
 namespace API.Bazaar.EndPoints;
 
 public record AddBannerRequest(BannerDTO BannerDto);
-public record AddBannerResponse(Banner Banner);
+public record AddBannerResponse(BannerDTO Banner);
 
 public class AddBannerEndpoint : CarterModule
 {

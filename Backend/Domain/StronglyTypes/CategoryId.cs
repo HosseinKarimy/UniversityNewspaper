@@ -11,5 +11,9 @@ public record CategoryId
     {
         return new CategoryId(value);
     }
+    public static CategoryId Of(string value)
+    {
+        return new CategoryId(Guid.Parse(value));
+    }
 }
 
