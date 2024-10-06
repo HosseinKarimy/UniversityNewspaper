@@ -1,8 +1,6 @@
-﻿using Application.BazaarHandlers;
-using Application.BazzarHandlers;
+﻿using Application.BazzarHandlers;
 using Application.DTO;
 using Carter;
-using Mapster;
 using MediatR;
 
 namespace API.Bazaar.EndPoints;

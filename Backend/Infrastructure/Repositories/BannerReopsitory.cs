@@ -1,6 +1,5 @@
 ﻿using Application.BazaarRepositories;
 using Domain.Models;
-using Domain.StronglyTypes;
 using Infrastructure.Data.ApplicaionDbContetxt;
 using Microsoft.EntityFrameworkCore;
 
