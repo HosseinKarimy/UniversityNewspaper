@@ -6,14 +6,14 @@ using MediatR;
 namespace Application.BazzarHandlers;
 
 public record GetBannersQuery() : IRequest<GetBannerResult>;
-public record GetBannerResult(List<BannerDTO> BannerDTOs);
+public record GetBannerResult(List<GetBannerDto> BannerDTOs);
 
 public class GetBannersHandler(IBannerRepository bannerRepository) : IRequestHandler<GetBannersQuery, GetBannerResult>
 {
     public async Task<GetBannerResult> Handle(GetBannersQuery request, CancellationToken cancellationToken)
     {
         List<Banner> banners = await bannerRepository.GetBannerAsync(cancellationToken);
-        List<BannerDTO> bannerDTOs = banners.Select(banner => BannerDTO.FromBanner(banner)).ToList();
+        List<GetBannerDto> bannerDTOs = banners.Select(banner => GetBannerDto.FromBanner(banner)).ToList();
         return new GetBannerResult(bannerDTOs);
     }
 }

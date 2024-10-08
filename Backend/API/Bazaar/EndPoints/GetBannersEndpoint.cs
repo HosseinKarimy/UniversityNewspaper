@@ -7,7 +7,7 @@ namespace API.Bazaar.EndPoints;
 
 
 public record GetBannersReques();
-public record GetBannerResponse(List<BannerDTO> BannerDTOs);
+public record GetBannerResponse(List<GetBannerDto> BannerDTOs);
 
 
 public class GetBannersEndpoint : CarterModule

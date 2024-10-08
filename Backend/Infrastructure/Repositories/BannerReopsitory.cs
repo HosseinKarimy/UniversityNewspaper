@@ -22,7 +22,7 @@ public class BannerReopsitory : IBannerRepository
 
     public async Task<List<Banner>> GetBannerAsync(CancellationToken cancellationToken = default)
     {
-        var banners = await dbContext.Banners.ToListAsync(cancellationToken);
+        var banners = await dbContext.Banners.Include(p=>p.Owner).Include(p => p.Category).ToListAsync(cancellationToken);
         return banners;
     }
 }
