@@ -6,8 +6,8 @@ using MediatR;
 
 namespace Application.BazaarHandlers;
 
-public record AddBannerCommand(BannerDTO BannerDto) : IRequest<AddBannerResult>;
-public record AddBannerResult(BannerDTO Banner);
+public record AddBannerCommand(AddBannerDto BannerDto) : IRequest<AddBannerResult>;
+public record AddBannerResult(Guid BannerId);
 
 public class AddBannerHandler(IBannerRepository bannerRepository) : IRequestHandler<AddBannerCommand, AddBannerResult>
 {
@@ -15,10 +15,10 @@ public class AddBannerHandler(IBannerRepository bannerRepository) : IRequestHand
     {
         var banner = CreateNewBanner(request.BannerDto);
         banner = await bannerRepository.AddBannerAsync(banner, cancellationToken);
-        return new AddBannerResult(BannerDTO.FromBanner(banner));
+        return new AddBannerResult(banner.BannerId.Value);
     }
 
-    private static Banner CreateNewBanner(BannerDTO bannerDto) => new()
+    private static Banner CreateNewBanner(AddBannerDto bannerDto) => new()
     {
         BannerId = Domain.StronglyTypes.BannerId.Of(Guid.NewGuid()),
         CategoryId = Domain.StronglyTypes.CategoryId.Of(bannerDto.CategoryId),

@@ -11,6 +11,6 @@ public class Banner
     public UserId OwnerId { get; set; }
     public Category Category { get; set; }
     public CategoryId CategoryId { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; }
     public ImageURL Image { get; set; }
 }

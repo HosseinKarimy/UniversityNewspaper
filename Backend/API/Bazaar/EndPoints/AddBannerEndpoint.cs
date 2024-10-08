@@ -6,8 +6,8 @@ using MediatR;
 
 namespace API.Bazaar.EndPoints;
 
-public record AddBannerRequest(BannerDTO BannerDto);
-public record AddBannerResponse(BannerDTO Banner);
+public record AddBannerRequest(AddBannerDto BannerDto);
+public record AddBannerResponse(Guid BannerId);
 
 public class AddBannerEndpoint : CarterModule
 {
@@ -19,7 +19,7 @@ public class AddBannerEndpoint : CarterModule
             AddBannerResult result = await mediator.Send(command);
             AddBannerResponse response = result.Adapt<AddBannerResponse>();
 
-            return Results.Ok(response);
+            return Results.Ok(response.BannerId);
         });
     }
 }
