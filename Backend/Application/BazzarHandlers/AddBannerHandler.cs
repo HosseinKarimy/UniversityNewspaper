@@ -1,4 +1,5 @@
 ﻿using Application.BazaarRepositories;
+using Application.CQRS;
 using Application.DTO;
 using Domain.Models;
 using Domain.StronglyTypes;
@@ -9,7 +10,7 @@ namespace Application.BazaarHandlers;
 public record AddBannerCommand(AddBannerDto BannerDto) : IRequest<AddBannerResult>;
 public record AddBannerResult(Guid BannerId);
 
-public class AddBannerHandler(IBannerRepository bannerRepository) : IRequestHandler<AddBannerCommand, AddBannerResult>
+public class AddBannerHandler(IBannerRepository bannerRepository) : ICommandHandler<AddBannerCommand, AddBannerResult>
 {
     public async Task<AddBannerResult> Handle(AddBannerCommand request, CancellationToken cancellationToken)
     {
