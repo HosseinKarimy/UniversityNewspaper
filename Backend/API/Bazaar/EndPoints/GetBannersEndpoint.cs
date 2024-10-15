@@ -1,12 +1,13 @@
-﻿using Application.BazzarHandlers;
-using Application.DTO;
+﻿using Application.Bazaar.BazzarHandlers;
+using Application.Bazaar.DTO;
 using Carter;
+using Mapster;
 using MediatR;
 
 namespace API.Bazaar.EndPoints;
 
 
-public record GetBannersReques();
+public record GetBannersRequest();
 public record GetBannerResponse(List<GetBannerDto> BannerDTOs);
 
 
@@ -15,12 +16,15 @@ public class GetBannersEndpoint : CarterModule
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("/Banners", async (IMediator mediator) => {
+            
+            //create Command
+            var query = new GetBannersQuery();
 
-           // var command = request.Adapt<>();
-            GetBannerResult result = await mediator.Send(new GetBannersQuery());
-            // GetBannerResponse response = result.Adapt<GetBannerResponse>();
+            //Send Query to Mediator Pipeline
+            GetBannerResult result = await mediator.Send(query);
 
-            return Results.Ok(result);
+            GetBannerResponse response = result.Adapt<GetBannerResponse>();
+            return Results.Ok(response);
 
         });
     }
