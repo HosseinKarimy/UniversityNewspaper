@@ -36,7 +36,10 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("OwnerId")
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -49,7 +52,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Banner");
+                    b.ToTable("Banners");
                 });
 
             modelBuilder.Entity("Domain.Models.Category", b =>
@@ -63,7 +66,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -90,37 +93,29 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("0371098e-898d-45ca-84b2-42790a7ab1c3"),
-                            FullName = "Name 1"
+                            UserId = 1234
                         },
                         new
                         {
-                            UserId = new Guid("fb7b0b35-baf2-4718-9bbf-a9ab6206224b"),
-                            FullName = "Name 2"
+                            UserId = 1235
                         },
                         new
                         {
-                            UserId = new Guid("243991d2-65dd-4636-868c-1f8f48ab8475"),
-                            FullName = "Name 3"
+                            UserId = 1236
                         },
                         new
                         {
-                            UserId = new Guid("4ce8ca07-8f81-4312-93d6-828d336af05b"),
-                            FullName = "Name 4"
+                            UserId = 1237
                         });
                 });
 

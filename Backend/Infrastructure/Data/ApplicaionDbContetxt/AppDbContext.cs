@@ -13,8 +13,8 @@ public class AppDbContext : DbContext
 
 
     public DbSet<Banner> Banners { get; set; }
-    public DbSet<Banner> Users { get; set; }
-    public DbSet<Banner> Categories { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

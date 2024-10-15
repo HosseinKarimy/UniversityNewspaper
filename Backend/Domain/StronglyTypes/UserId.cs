@@ -2,16 +2,18 @@
 
 public record UserId
 {
-    public Guid Value { get; set; }
+    public int Value { get; set; }
 
-    private UserId(Guid value) => Value = value;
+    private UserId(int value) => Value = value;
 
-    public static UserId Of(Guid value)
+    public static UserId Of(int value)
     {
+        ArgumentNullException.ThrowIfNull(value);
         return new UserId(value);
     }
     public static UserId Of(string value)
     {
-        return new UserId(Guid.Parse(value));
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(value);
+        return new UserId(int.Parse(value));
     }
 }
