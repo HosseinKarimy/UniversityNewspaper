@@ -2,6 +2,7 @@ using API;
 using Application;
 using Carter;
 using Infrastructure;
+using Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApiLayerServices();
 builder.Services.AddApplicationLayerServices();
 builder.Services.AddInfrastructureLayerServices();
+builder.Services.AddHelperServices();
 
 
 var app = builder.Build();
