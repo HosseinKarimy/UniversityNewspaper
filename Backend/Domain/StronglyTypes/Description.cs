@@ -4,7 +4,7 @@ public record Description
 {
     public string Value { get; set; }
 
-    private Description(string value) => Value = value;
+    public Description(string value) => Value = value;
 
     public static Description Of(string value)
     {

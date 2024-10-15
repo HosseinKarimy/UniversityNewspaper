@@ -4,7 +4,7 @@ public record FullName
 {
     public string Value { get; set; }
 
-    private FullName(string value) => Value = value;
+    public FullName(string value) => Value = value;
 
     public static FullName Of(string value)
     {

@@ -4,7 +4,7 @@ public record ImageURL
 {
     public string Value { get; set; }
 
-    private ImageURL(string value) => Value = value;
+    public ImageURL(string value) => Value = value;
 
     public static ImageURL Of(string value)
     {

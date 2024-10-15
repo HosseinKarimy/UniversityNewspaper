@@ -4,7 +4,7 @@ public record UserId
 {
     public int Value { get; set; }
 
-    private UserId(int value) => Value = value;
+    public UserId(int value) => Value = value;
 
     public static UserId Of(int value)
     {

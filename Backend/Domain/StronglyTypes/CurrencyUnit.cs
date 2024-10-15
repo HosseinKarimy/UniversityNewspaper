@@ -4,7 +4,7 @@ public record CurrencyUnit
 {
     public decimal Value { get; set; }
 
-    private CurrencyUnit(decimal value) => Value = value;
+    public CurrencyUnit(decimal value) => Value = value;
 
     public static CurrencyUnit Of(decimal value)
     {

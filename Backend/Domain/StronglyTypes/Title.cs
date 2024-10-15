@@ -4,7 +4,7 @@ public record Title
 {
     public string Value { get; set; }
 
-    private Title(string value) => Value = value;
+    public Title(string value) => Value = value;
 
     public static Title Of(string value)
     {

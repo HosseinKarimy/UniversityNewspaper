@@ -4,7 +4,7 @@ public record BannerId
 {
     public Guid Value { get; set; }
 
-    private BannerId(Guid value) => Value = value;
+    public BannerId(Guid value) => Value = value;
 
     public static BannerId Of(Guid value)
     {
