@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 /Backend/Infrastructure/Data/ApplicaionDbContetxt/DataBase
 /Backend/Infrastructure/Migrations
+/Backend/Infrastructure/Migrations/20241015104617_add_price_to_BannerTable.cs
+/Backend/Infrastructure/Migrations/20241014065418_initial.cs
+/Backend/Infrastructure/Migrations/AppDbContextModelSnapshot.cs

@@ -6,7 +6,7 @@ using FluentValidation;
 using Helper.CQRS;
 using Helper.HelperModels;
 
-namespace Application.Bazaar.BazzarHandlers;
+namespace Application.Bazaar.BazzarHandlers.AddBanner;
 
 public record AddBannerCommand(AddBannerDto BannerDto) : ICommand<AddBannerResult>
 {

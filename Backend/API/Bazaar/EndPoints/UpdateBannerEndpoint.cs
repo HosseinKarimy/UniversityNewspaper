@@ -1,22 +1,20 @@
 ﻿using Application.Bazaar.BazzarHandlers.AddBanner;
 using Application.Bazaar.DTO;
 using Carter;
-using Mapster;
 using MediatR;
 
-namespace API.Bazaar.EndPoints;
-
-public record AddBannerRequest(AddBannerDto BannerDto);
-public record AddBannerResponse(Guid BannerId);
-
-public class AddBannerEndpoint : CarterModule
+namespace API.Bazaar.EndPoints
 {
-    public override void AddRoutes(IEndpointRouteBuilder app)
+
+    public record UpdateBannerCommand(AddBannerDto BannerDto);
+    public record UpdateBannerResponse(bool IsSuccess);
+
+    public class UpdateBannerEndpoint : CarterModule
     {
-        app.MapPost("/banners", async (AddBannerRequest request, IMediator mediator) =>
-        {  
+        public override void AddRoutes(IEndpointRouteBuilder app)
+        {
             //create Command
-            var command = new AddBannerCommand(request.BannerDto);
+            var command = new UpdateBannerCommand(request.BannerDto);
 
             //Send Command to Mediator Pipeline
             AddBannerResult result = await mediator.Send(command);
@@ -24,6 +22,6 @@ public class AddBannerEndpoint : CarterModule
             //Return response to client
             AddBannerResponse response = result.Adapt<AddBannerResponse>();
             return Results.Ok(response.BannerId);
-        });
+        }
     }
 }
