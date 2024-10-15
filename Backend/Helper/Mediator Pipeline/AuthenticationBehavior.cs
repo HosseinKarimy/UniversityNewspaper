@@ -1,4 +1,5 @@
 ﻿using Helper.CQRS;
+using Helper.Exceptions;
 using Helper.Helpers;
 using Helper.ServerResponseDto;
 using MediatR.Pipeline;
@@ -15,10 +16,14 @@ public class AuthenticationBehavior<TRequest> : IRequestPreProcessor<TRequest> w
 
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
+        //Extract Token from request
         var token = _httpContextAccessor.HttpContext.Request.Headers["Authorization"];
-        //TODO - Impeliment Get User Id
-        var result = await new HttpRequestSender(token).GetUserInfoFromMainServer();
-        var response = ServerGetUserInfoResponse.FromJsonRequest(result);
-        request.UserId = response.User.Id;
+
+        //Send Token To MainJsuServer for Authenticate the user and get user info
+        var result = await new HttpRequestSender(token).GetUserInfoFromMainServer() ?? throw new UnauthorizedExeption();
+
+        //Extrace UserId from ServerResponse
+        var response = ServerGetUserInfoResponse.FromJsonRequest(result) ?? throw new Exception("Cant Parse Server Response");
+        request.ContextCarrier.AuthenticatedUserId = response.User.Id;
     }
 }

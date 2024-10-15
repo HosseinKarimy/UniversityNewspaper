@@ -7,7 +7,8 @@ public class ValidattionBehavior<TRequest, TResult>(IEnumerable<IValidator<TRequ
 {
     public async Task<TResult> Handle(TRequest request, RequestHandlerDelegate<TResult> next, CancellationToken cancellationToken)
     {
-        // ArgumentNullException.ThrowIfNull(next);
+        ArgumentNullException.ThrowIfNull(request);
+        ArgumentNullException.ThrowIfNull(next);
 
         var context = new ValidationContext<TRequest>(request);
 
@@ -21,7 +22,7 @@ public class ValidattionBehavior<TRequest, TResult>(IEnumerable<IValidator<TRequ
             .SelectMany(failure => failure.Errors)
             .ToList();
 
-        if (errors.Any())
+        if (errors.Count != 0)
         {
             throw new ValidationException(errors);
         }

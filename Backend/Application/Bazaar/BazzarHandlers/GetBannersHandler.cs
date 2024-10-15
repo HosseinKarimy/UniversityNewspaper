@@ -1,10 +1,9 @@
-﻿using Application.BazaarRepositories;
-using Application.CQRS;
-using Application.DTO;
+﻿using Application.Bazaar.BazzarRepositories;
+using Application.Bazaar.DTO;
 using Domain.Models;
-using MediatR;
+using Helper.CQRS;
 
-namespace Application.BazzarHandlers;
+namespace Application.Bazaar.BazzarHandlers;
 
 public record GetBannersQuery() : IQuery<GetBannerResult>;
 public record GetBannerResult(List<GetBannerDto> BannerDTOs);

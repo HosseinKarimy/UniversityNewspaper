@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace Application.DTO;
+namespace Application.Bazaar.DTO;
 
 public class GetBannerDto
 {

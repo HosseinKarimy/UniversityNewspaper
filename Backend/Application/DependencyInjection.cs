@@ -3,11 +3,9 @@ using Helper.Mediator_Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-
-
 namespace Application;
 
-public static class ApplicationDependencyInjections
+public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationLayerServices(this IServiceCollection services)
     {
@@ -19,7 +17,6 @@ public static class ApplicationDependencyInjections
                 .AddOpenBehavior(typeof(ValidattionBehavior<,>))
                 .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
-        services.AddHttpContextAccessor();
         return services;
     }
 }
