@@ -13,4 +13,5 @@ public class Banner
     public CategoryId CategoryId { get; set; }
     public DateTime CreatedAt { get; set; }
     public ImageURL Image { get; set; }
+    public CurrencyUnit Price { get; set; }
 }
