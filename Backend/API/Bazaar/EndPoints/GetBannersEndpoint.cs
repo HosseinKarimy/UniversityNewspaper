@@ -8,7 +8,7 @@ namespace API.Bazaar.EndPoints;
 
 
 public record GetBannersRequest();
-public record GetBannerResponse(List<GetBannerDto> BannerDTOs);
+public record GetBannersResponse(List<GetBannerDto> BannerDTOs);
 
 
 public class GetBannersEndpoint : CarterModule
@@ -21,9 +21,9 @@ public class GetBannersEndpoint : CarterModule
             var query = new GetBannersQuery();
 
             //Send Query to Mediator Pipeline
-            GetBannerResult result = await mediator.Send(query);
+            GetBannersResult result = await mediator.Send(query);
 
-            GetBannerResponse response = result.Adapt<GetBannerResponse>();
+            GetBannersResponse response = result.Adapt<GetBannersResponse>();
             return Results.Ok(response);
 
         });

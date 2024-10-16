@@ -5,12 +5,12 @@ using Helper.CQRS;
 
 namespace Application.Bazaar.BazzarHandlers.GetBanners;
 
-public class GetBannersHandler(IBannerRepository bannerRepository) : IQueryHandler<GetBannersQuery, GetBannerResult>
+public class GetBannersHandler(IBannerRepository bannerRepository) : IQueryHandler<GetBannersQuery, GetBannersResult>
 {
-    public async Task<GetBannerResult> Handle(GetBannersQuery request, CancellationToken cancellationToken)
+    public async Task<GetBannersResult> Handle(GetBannersQuery request, CancellationToken cancellationToken)
     {
         List<Banner> banners = await bannerRepository.GetAllBannersAsync(cancellationToken);
         List<GetBannerDto> bannerDTOs = banners.Select(banner => GetBannerDto.FromBanner(banner)).ToList();
-        return new GetBannerResult(bannerDTOs);
+        return new GetBannersResult(bannerDTOs);
     }
 }
