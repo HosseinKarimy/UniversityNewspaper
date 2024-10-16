@@ -23,13 +23,17 @@ public class BannerRepository : IBannerRepository
 
     public async Task<List<Banner>> GetAllBannersAsync(CancellationToken cancellationToken = default)
     {
-        var banners = await dbContext.Banners.Include(p=>p.Owner).Include(p => p.Category).ToListAsync(cancellationToken);
-        return banners;
+        return await dbContext.Banners.Include(p=>p.Owner).Include(p => p.Category).ToListAsync(cancellationToken);
     }
 
     public Task<Banner?> GetBannersByIdAsync(BannerId bannerId, CancellationToken cancellationToken = default)
     {
         return dbContext.Banners.FirstOrDefaultAsync(b => b.BannerId == bannerId , cancellationToken);
+    }
+
+    public Task<List<Banner>> GetUserBannersAsync(UserId userId, CancellationToken cancellationToken = default)
+    {
+        return dbContext.Banners.Include(p => p.Owner).Include(p => p.Category).Where(banner=>banner.OwnerId == userId).ToListAsync(cancellationToken);
     }
 
     public async Task<bool> UpdateBannerAsync(Banner banner, CancellationToken cancellationToken = default)
