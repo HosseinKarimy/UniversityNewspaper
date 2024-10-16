@@ -1,5 +1,5 @@
 ﻿using API.Bazaar.EndPoints;
-using Application.Bazaar.BazzarHandlers;
+using Application.Bazaar.BazzarHandlers.GetBanners;
 using Mapster;
 namespace API;
 

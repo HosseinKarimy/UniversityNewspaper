@@ -1,4 +1,4 @@
-﻿using Application.Bazaar.BazzarHandlers;
+﻿using Application.Bazaar.BazzarHandlers.GetBanners;
 using Application.Bazaar.DTO;
 using Carter;
 using Mapster;
