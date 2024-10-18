@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /Backend/Infrastructure/Migrations/20241015104617_add_price_to_BannerTable.cs
 /Backend/Infrastructure/Migrations/20241014065418_initial.cs
 /Backend/Infrastructure/Migrations/AppDbContextModelSnapshot.cs
+/Backend/Infrastructure/Migrations/AppDbContextModelSnapshot.cs

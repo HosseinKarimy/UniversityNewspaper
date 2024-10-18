@@ -12,6 +12,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IBannerRepository, BannerRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         var databasePath = "C:\\Users\\hossein\\source\\repos\\UniversityBazzar\\Backend\\Infrastructure\\Data\\ApplicaionDbContetxt\\DataBase\\Data.db";
         services.AddDbContext<AppDbContext>(option => option.UseSqlite($"Data Source = {databasePath}"));
         return services;
