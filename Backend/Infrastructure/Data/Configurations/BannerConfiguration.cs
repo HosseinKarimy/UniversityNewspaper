@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Enums;
+using Domain.Models;
 using Domain.StronglyTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -20,8 +21,6 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
         builder.Property(p => p.Description)
             .HasConversion(Description => Description.Value, dbDescription => Description.Of(dbDescription));
 
-        builder.Property(p => p.Description)
-            .HasConversion(Description => Description.Value, dbDescription => Description.Of(dbDescription));
 
         builder.Property(p => p.OwnerId)
             .HasConversion(OwnerId => OwnerId.Value, dbUserId => UserId.Of(dbUserId));
@@ -32,11 +31,21 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
         builder.Property(p => p.Image)
             .HasConversion(Image => Image.Value, dbImage => ImageURL.Of(dbImage));
 
-        builder.Property(p => p.Price)
-            .HasConversion(Price => Price.Value, dbPrice => CurrencyUnit.Of(dbPrice));
+        builder.HasDiscriminator<BannerType>("BannerType")
+            .HasValue<GoodsBanner>(BannerType.Goods)
+            .HasValue<ServiceBanner>(BannerType.Service)
+            .HasValue<EventBanner>(BannerType.Event);
 
-        builder.HasOne<User>(e=>e.Owner).WithMany().HasForeignKey(b=>b.OwnerId).IsRequired();
 
-        builder.HasOne<Category>(e=>e.Category).WithMany().HasForeignKey(b => b.CategoryId).IsRequired();
+        //if (builder.Metadata.ClrType == typeof(GoodsBanner))
+        //{
+        //    builder.Property(b => (b as GoodsBanner).Price).HasConversion(Price => Price.Value, dbPrice => CurrencyUnit.Of(dbPrice)).IsRequired(true);
+        //}
+
+        builder.HasOne<User>(e => e.Owner).WithMany().HasForeignKey(b => b.OwnerId).IsRequired();
+
+        builder.HasOne<Category>(e => e.Category).WithMany().HasForeignKey(b => b.CategoryId).IsRequired();
+
+        builder.HasMany<Tag>(b=>b.Tags).WithMany();
     }
 }

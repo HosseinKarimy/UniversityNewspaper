@@ -3,6 +3,7 @@ using Application.Bazaar.DTO;
 using Domain.Models;
 using Domain.StronglyTypes;
 using Helper.CQRS;
+using System.Diagnostics;
 namespace Application.Bazaar.BazzarHandlers.AddBanner;
 
 public class AddBannerHandler(IBannerRepository bannerRepository, IUserRepository userRepository) : ICommandHandler<AddBannerCommand, AddBannerResult>
@@ -17,7 +18,7 @@ public class AddBannerHandler(IBannerRepository bannerRepository, IUserRepositor
 
     private User CreateNewUser(int userId) => new() { UserId = UserId.Of(userId) };
 
-    private static Banner CreateNewBanner(AddBannerDto bannerDto, int userId) => new()
+    private static GoodsBanner CreateNewBanner(AddBannerDto bannerDto, int userId) => new()
     {
         BannerId = BannerId.Of(Guid.NewGuid()),
         CategoryId = CategoryId.Of(bannerDto.CategoryId),
@@ -26,6 +27,7 @@ public class AddBannerHandler(IBannerRepository bannerRepository, IUserRepositor
         Description = Description.Of(bannerDto.Description),
         Title = Title.Of(bannerDto.Title),
         Image = ImageURL.Of(bannerDto.Image),
-        Price = CurrencyUnit.Of(bannerDto.Price)
+        //Price = CurrencyUnit.Of(bannerDto.Price)
+        Price = bannerDto.Price
     };
 }

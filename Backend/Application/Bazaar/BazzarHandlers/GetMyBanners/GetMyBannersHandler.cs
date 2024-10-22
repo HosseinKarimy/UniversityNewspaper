@@ -10,7 +10,7 @@ public class GetMyBannersHandler(IBannerRepository bannerRepository) : IQueryHan
 {
     public async Task<GetMyBannersResult> Handle(GetMyBannersQuery request, CancellationToken cancellationToken)
     {
-        List<Banner> banners = await bannerRepository.GetUserBannersAsync(
+        List<GoodsBanner> banners = await bannerRepository.GetUserBannersAsync(
             UserId.Of(request.ContextCarrier.AuthenticatedUserId), cancellationToken);
         List<GetBannerDto> bannerDTOs = banners.Select(banner => GetBannerDto.FromBanner(banner)).ToList();
         return new GetMyBannersResult(bannerDTOs);

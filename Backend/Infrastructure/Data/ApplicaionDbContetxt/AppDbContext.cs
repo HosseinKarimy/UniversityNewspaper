@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
     }
 
 
-    public DbSet<Banner> Banners { get; set; }
+    public DbSet<GoodsBanner> Banners { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Category> Categories { get; set; }
 

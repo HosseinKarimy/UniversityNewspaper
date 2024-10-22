@@ -12,7 +12,7 @@ public record GetBannerDto(
     string Image
 )
 {
-    public static GetBannerDto FromBanner(Banner banner)
+    public static GetBannerDto FromBanner(GoodsBanner banner)
     {
         return new GetBannerDto(
             banner.BannerId.Value,
