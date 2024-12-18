@@ -17,8 +17,6 @@ public abstract class Banner
     public ImageURL Image { get; set; }
     public List<Tag> Tags { get; set; }
 
-    public virtual BannerType BannerType { get; init; }
-
     //Banner Status: You might want to add a property to indicate the status of a banner (e.g., "Active", "Inactive", "Pending Approval").
 
     //Banner Expiration: If banners have a limited lifespan, consider adding a property to track their expiration date.

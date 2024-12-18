@@ -1,5 +1,4 @@
-﻿using Domain.Enums;
-using Domain.Models;
+﻿using Domain.Models;
 using Domain.StronglyTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -31,16 +30,7 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
         builder.Property(p => p.Image)
             .HasConversion(Image => Image.Value, dbImage => ImageURL.Of(dbImage));
 
-        builder.HasDiscriminator<BannerType>("BannerType")
-            .HasValue<GoodsBanner>(BannerType.Goods)
-            .HasValue<ServiceBanner>(BannerType.Service)
-            .HasValue<EventBanner>(BannerType.Event);
-
-
-        //if (builder.Metadata.ClrType == typeof(GoodsBanner))
-        //{
-        //    builder.Property(b => (b as GoodsBanner).Price).HasConversion(Price => Price.Value, dbPrice => CurrencyUnit.Of(dbPrice)).IsRequired(true);
-        //}
+        builder.UseTpcMappingStrategy();
 
         builder.HasOne<User>(e => e.Owner).WithMany().HasForeignKey(b => b.OwnerId).IsRequired();
 

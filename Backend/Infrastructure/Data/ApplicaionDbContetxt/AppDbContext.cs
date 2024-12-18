@@ -11,8 +11,9 @@ public class AppDbContext : DbContext
         
     }
 
-
-    public DbSet<GoodsBanner> Banners { get; set; }
+    public DbSet<GoodBanner> GoodBanners { get; set; }
+    public DbSet<ServiceBanner> ServiceBanners { get; set; }
+    public DbSet<EventBanner> EventBanners { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Category> Categories { get; set; }
 
