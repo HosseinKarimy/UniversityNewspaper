@@ -1,4 +1,6 @@
-﻿namespace Helper.HelperModels;
+﻿using Domain.Models;
+
+namespace Helper.HelperModels;
 
 /// <summary>
 /// this record carry the important elements of Request Context
@@ -8,5 +10,5 @@ public record ImportantHttpContextCarrier
     /// <summary>
     /// the ID of user that send the request
     /// </summary>
-    public int AuthenticatedUserId { get; set; }
+    public User? AuthenticatedUser { get; set; }
 }

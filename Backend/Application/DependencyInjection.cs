@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Helper.Mediator_Pipeline;
+﻿using Application.Mediator_Pipeline;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -17,6 +17,7 @@ public static class DependencyInjection
                 .AddOpenBehavior(typeof(ValidattionBehavior<,>))
                 .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
+        services.AddHttpContextAccessor();
         return services;
     }
 }

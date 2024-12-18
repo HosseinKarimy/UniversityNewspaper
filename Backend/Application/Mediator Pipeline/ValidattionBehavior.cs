@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 
-namespace Helper.Mediator_Pipeline;
+namespace Application.Mediator_Pipeline;
 
 public class ValidattionBehavior<TRequest, TResult>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResult>
 {
