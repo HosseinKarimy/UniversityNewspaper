@@ -7,7 +7,7 @@ using MediatR;
 namespace API.Bazaar.EndPoints;
 
 
-public record GetBannersRequest();
+//public record GetBannersRequest();
 public record GetBannersResponse(List<GetBannerDto> BannerDTOs);
 
 
@@ -15,10 +15,10 @@ public class GetBannersEndpoint : CarterModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/Banners", async (IMediator mediator) => {
-            
+        app.MapGet("/Banners/goods", async (IMediator mediator) => {
+
             //create Command
-            var query = new GetBannersQuery();
+            var query = new GetBannersQuery(Domain.Enums.BannerType.Goods);
 
             //Send Query to Mediator Pipeline
             GetBannersResult result = await mediator.Send(query);
@@ -27,5 +27,15 @@ public class GetBannersEndpoint : CarterModule
             return Results.Ok(response);
 
         });
+
+        app.MapGet("/Banners/services", async (IMediator mediator) => {
+
+        });
+
+        app.MapGet("/Banners/events", async (IMediator mediator) => {
+
+
+        });
+
     }
 }

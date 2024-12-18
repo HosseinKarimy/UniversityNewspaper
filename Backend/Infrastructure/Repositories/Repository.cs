@@ -24,9 +24,9 @@ public class Repository<T, Tid> : IRepository<T, Tid> where T : class
         throw new NotImplementedException();
     }
 
-    public Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await dbSet.ToListAsync(cancellationToken);
     }
 
     public Task<T> GetByIdAsync(Tid id, CancellationToken cancellationToken = default)
