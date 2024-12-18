@@ -18,7 +18,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             new User() {UserId = UserId.Of(1234) },
             new User() {UserId = UserId.Of(1235) },
             new User() {UserId = UserId.Of(1236) },
-            new User() {UserId = UserId.Of(1237) }
+            new User() {UserId = UserId.Of(8800) }
             ]);
     }
 }
