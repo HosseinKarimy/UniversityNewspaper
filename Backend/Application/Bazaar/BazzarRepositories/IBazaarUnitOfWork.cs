@@ -3,5 +3,6 @@
 public interface IBazaarUnitOfWork : IDisposable
 {
     public IGoodBannerRepository GoodBannerRepository { get; }
+    public IServiceBannerRepository ServiceBannerRepository { get; }
     public Task<int> SaveChangesAsync();
 }
