@@ -4,15 +4,8 @@ using System.Collections.Generic;
 
 namespace Infrastructure.Repositories;
 
-public class Repository<T, Tid> : IRepository<T, Tid> where T : class
+public abstract class Repository<T, Tid>(DbSet<T> dbSet) : IRepository<T, Tid> where T : class
 {
-    private readonly DbSet<T> dbSet;
-
-    public Repository(DbSet<T> dbSet)
-    {
-        this.dbSet = dbSet;
-    }
-
     public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
     {        
         await dbSet.AddAsync(entity, cancellationToken);
