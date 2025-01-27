@@ -1,6 +1,7 @@
 ﻿using Application.Bazaar.BazzarHandlers.GetBanners;
 using Application.Bazaar.DTO;
 using Carter;
+using Helper.JsuServerResponse;
 using Mapster;
 using MediatR;
 
@@ -23,13 +24,23 @@ public class GetBannersEndpoint : CarterModule
             //Send Query to Mediator Pipeline
             GetBannersResult result = await mediator.Send(query);
 
-            GetBannersResponse response = result.Adapt<GetBannersResponse>();
-            return Results.Ok(response);
+            //  GetBannersResponse response = result.Adapt<GetBannersResponse>();
+            var data = result.BannerDTOs.Cast<GetGoodBannerDto>();
+            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success" , data));
 
         });
 
         app.MapGet("/Banners/services", async (IMediator mediator) => {
 
+            //create Command
+            var query = new GetBannersQuery(Domain.Enums.BannerType.Service);
+
+            //Send Query to Mediator Pipeline
+            GetBannersResult result = await mediator.Send(query);
+
+            //GetBannersResponse response = result.Adapt<GetBannersResponse>();
+            var data = result.BannerDTOs.Cast<GetServiceBannerDto>();
+            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", data));
         });
 
         app.MapGet("/Banners/events", async (IMediator mediator) => {

@@ -1,7 +1,6 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Application.Bazaar.DTO;
 using Domain.Enums;
-using Domain.Models;
 using Helper.CQRS;
 
 namespace Application.Bazaar.BazzarHandlers.GetBanners;
@@ -10,14 +9,19 @@ public class GetBannersHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IQueryHandl
 {
     public async Task<GetBannersResult> Handle(GetBannersQuery request, CancellationToken cancellationToken)
     {
-        var banners = request.RequestedBannerType switch
+        switch (request.RequestedBannerType)
         {
-            BannerType.Goods => await bazaarUnitOfWork.GoodBannerRepository.GetAllAsync(cancellationToken),
-            BannerType.Service => throw new NotImplementedException(),
-            BannerType.Event => throw new NotImplementedException(),
-            _ => throw new NotImplementedException(),
-        };
-
-        return new GetBannersResult(banners.Select(banner => GetBannerDto.FromBanner(banner)).ToList());
+            case BannerType.Goods:
+               var goods = await bazaarUnitOfWork.GoodBannerRepository.GetAllAsync(cancellationToken);
+                return new GetBannersResult(goods.Select(banner => (GetBannerDto)GetGoodBannerDto.FromBanner(banner)).ToList());
+            case BannerType.Service:
+                var services = await bazaarUnitOfWork.ServiceBannerRepository.GetAllAsync(cancellationToken);
+                return new GetBannersResult(services.Select(banner => (GetBannerDto)GetServiceBannerDto.FromBanner(banner)).ToList());
+            case BannerType.Event:
+                throw new NotImplementedException();
+                
+            default:
+                throw new Exception();
+        }
     }
 }

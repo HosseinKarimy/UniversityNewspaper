@@ -6,7 +6,7 @@ using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.GetBanners;
 
-public record GetBannersQuery(BannerType? RequestedBannerType) : IQuery<GetBannersResult>
+public record GetBannersQuery(BannerType RequestedBannerType) : IQuery<GetBannersResult>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }
