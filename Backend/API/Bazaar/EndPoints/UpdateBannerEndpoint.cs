@@ -1,31 +1,30 @@
 ﻿using Application.Bazaar.BazzarHandlers.UpdateBanner;
 using Application.Bazaar.DTO;
 using Carter;
+using Helper.JsuServerResponse;
 using Mapster;
 using MediatR;
 
-namespace API.Bazaar.EndPoints
+namespace API.Bazaar.EndPoints;
+
+public record UpdateBannerRequest(UpdateGoodBannerDto BannerDto);
+public record UpdateBannerResponse(bool IsSuccess);
+
+public class UpdateBannerEndpoint : CarterModule
 {
-
-    public record UpdateBannerRequest(UpdateBannerDto BannerDto);
-    public record UpdateBannerResponse(bool IsSuccess);
-
-    public class UpdateBannerEndpoint : CarterModule
+    public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        public override void AddRoutes(IEndpointRouteBuilder app)
+        app.MapPut("/banners/goods/{id:guid}", async (Guid id,UpdateBannerRequest request, IMediator mediator) =>
         {
-            app.MapPut("/banners", async (UpdateBannerRequest request, IMediator mediator) =>
-            {
-                //create Command
-                var command = new UpdateBannerCommand(request.BannerDto);
+            //create Command
+            var command = new UpdateGoodBannerCommand(id,request.BannerDto);
 
-                //Send Command to Mediator Pipeline
-                UpdateBannerResult result = await mediator.Send(command);
+            //Send Command to Mediator Pipeline
+            UpdateBannerResult result = await mediator.Send(command);
 
-                //Return response to client
-                UpdateBannerResponse response = result.Adapt<UpdateBannerResponse>();
-                return Results.Ok(response.IsSuccess);
-            });
-        }
+            //Return response to client
+            UpdateBannerResponse response = result.Adapt<UpdateBannerResponse>();
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(status: response.IsSuccess ? "Success" : "Failed" ));
+        });
     }
 }
