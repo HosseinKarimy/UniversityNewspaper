@@ -12,7 +12,7 @@ public class AddServiceBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IComm
     {
         var banner = CreateNewBanner((request.BannerDto as AddServiceBannerDto), request.ContextCarrier.AuthenticatedUser.UserId.Value);
         banner = await bazaarUnitOfWork.ServiceBannerRepository.AddAsync(banner, cancellationToken);
-        await bazaarUnitOfWork.SaveChangesAsync();
+        await bazaarUnitOfWork.SaveChangesAsync(cancellationToken);
         return new AddBannerResult(banner.BannerId.Value);
     }
 

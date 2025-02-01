@@ -11,7 +11,7 @@ public class AddGoodBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : ICommand
     {
         var banner = CreateNewBanner((request.BannerDto as AddGoodBannerDto), request.ContextCarrier.AuthenticatedUser.UserId.Value);
         banner = await bazaarUnitOfWork.GoodBannerRepository.AddAsync(banner, cancellationToken);
-        await bazaarUnitOfWork.SaveChangesAsync();
+        await bazaarUnitOfWork.SaveChangesAsync(cancellationToken);
         return new AddBannerResult(banner.BannerId.Value);
     }
 
