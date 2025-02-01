@@ -86,8 +86,5 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             ParentCategoryId = CategoryId.Of("d3728c0f-f070-477f-a108-ae738d4bf7f6") },
         new Category() { CategoryId = CategoryId.Of("b3240648-e8ab-45b9-86c1-efe9cdfcc607"), CategoryName = CategoryName.Of("تیم های هنری، تئاتر ، برگزاری نمیشگاه و"),
             ParentCategoryId = CategoryId.Of("d3728c0f-f070-477f-a108-ae738d4bf7f6") },
-
-
-
         ];
 }

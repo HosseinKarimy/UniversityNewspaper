@@ -4,5 +4,5 @@ namespace Application.Bazaar.BazzarRepositories;
 
 public interface ICategoryRepository
 {
-    public Task<List<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken = default);
+    public Task<List<Category>> GetCategorieshierarchyAsync(CancellationToken cancellationToken = default);
 }

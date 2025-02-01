@@ -8,7 +8,7 @@ public class GetCategoriesHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IRequest
 {
     public async Task<GetCategoriesResult> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var categories = await bazaarUnitOfWork.CategoryRepository.GetAllCategoriesAsync(cancellationToken);
+        var categories = await bazaarUnitOfWork.CategoryRepository.GetCategorieshierarchyAsync(cancellationToken);
         var categoriesDto = categories.Select(category=>GetCategoryDto.FromCategory(category)).ToList();
         return new GetCategoriesResult(categoriesDto);
     }

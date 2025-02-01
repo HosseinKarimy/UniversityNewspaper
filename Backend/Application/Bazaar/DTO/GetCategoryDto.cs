@@ -10,7 +10,7 @@ public record GetCategoryDto(Guid CategoryId , string CategoryName , Guid? Paren
             category.CategoryId.Value!.Value,
             category.CategoryName.Value,
             category.ParentCategoryId?.Value,
-            category.ChildCategories.Select(c => GetCategoryDto.FromCategory(c)).ToList()           
+            category.ChildCategories?.Select(c => GetCategoryDto.FromCategory(c)).ToList()           
         );
     }
 }
