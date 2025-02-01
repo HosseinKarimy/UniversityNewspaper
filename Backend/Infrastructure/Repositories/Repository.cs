@@ -1,6 +1,5 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Infrastructure.Repositories;
 
@@ -22,13 +21,13 @@ public abstract class Repository<T, Tid>(DbSet<T> dbSet) : IRepository<T, Tid> w
         return await dbSet.ToListAsync(cancellationToken);
     }
 
-    public Task<T> GetByIdAsync(Tid id, CancellationToken cancellationToken = default)
+    public async Task<T?> GetByIdAsync(Tid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await dbSet.FindAsync(id, cancellationToken);
     }
 
-    public Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    public void Update(T entity)
     {
-        throw new NotImplementedException();
+        dbSet.Update(entity);
     }
 }

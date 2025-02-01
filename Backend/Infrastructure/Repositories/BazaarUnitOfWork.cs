@@ -13,10 +13,13 @@ public class BazaarUnitOfWork(AppDbContext appDbContext) : IBazaarUnitOfWork
 
     public IServiceBannerRepository ServiceBannerRepository => _serviceBannerRepository;
 
+    public IEventBannerRepository EventBannerRepository => throw new NotImplementedException();
+
     public ICategoryRepository CategoryRepository => _CategoryRepository;
-    public async Task<int> SaveChangesAsync()
+
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
     {
-        return await appDbContext.SaveChangesAsync();
+        return await appDbContext.SaveChangesAsync(cancellationToken);
     }
 
     public void Dispose()
