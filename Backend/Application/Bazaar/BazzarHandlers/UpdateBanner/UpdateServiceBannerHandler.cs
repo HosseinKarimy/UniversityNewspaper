@@ -6,30 +6,31 @@ using MediatR;
 
 namespace Application.Bazaar.BazzarHandlers.UpdateBanner;
 
-public class UpdateGoodBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHandler<UpdateGoodBannerCommand, UpdateBannerResult>
+public class UpdateServiceBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHandler<UpdateServiceBannerCommand, UpdateBannerResult>
 {
-    public async Task<UpdateBannerResult> Handle(UpdateGoodBannerCommand request, CancellationToken cancellationToken)
+    public async Task<UpdateBannerResult> Handle(UpdateServiceBannerCommand request, CancellationToken cancellationToken)
     {
         var userId = request.ContextCarrier.AuthenticatedUser!.UserId;
-        var banner = await bazaarUow.GoodBannerRepository.GetByIdAsync(BannerId.Of(request.BannerId) , cancellationToken);
+        var banner = await bazaarUow.ServiceBannerRepository.GetByIdAsync(BannerId.Of(request.BannerId), cancellationToken);
         AuthorizeRequest(banner, userId);
-        UpdateBannerObject(banner, request.Banner);
-        bazaarUow.GoodBannerRepository.Update(banner);
+        UpdateBannerObject(banner!, request.Banner);
+        bazaarUow.ServiceBannerRepository.Update(banner!);
         await bazaarUow.SaveChangesAsync(cancellationToken);
         return new UpdateBannerResult(true);
     }
 
-    private static void UpdateBannerObject(GoodBanner banner, UpdateGoodBannerDto bannerDto)
+
+    private static void UpdateBannerObject(ServiceBanner banner, UpdateServiceBannerDto bannerDto)
     {
         banner.CategoryId = CategoryId.Of(bannerDto.CategoryId);
         banner.Description = Description.Of(bannerDto.Description);
         banner.Title = Title.Of(bannerDto.Title);
         banner.Image = ImageURL.Of(bannerDto.Image);
-        banner.Price = CurrencyUnit.Of(bannerDto.Price);
     }
 
-    private static void AuthorizeRequest(GoodBanner banner, UserId requestUserId)
+    private static void AuthorizeRequest(ServiceBanner? banner, UserId requestUserId)
     {
+        ArgumentNullException.ThrowIfNull(banner);
         if (banner.OwnerId != requestUserId)
             throw new Exception("Unauthorized");
     }

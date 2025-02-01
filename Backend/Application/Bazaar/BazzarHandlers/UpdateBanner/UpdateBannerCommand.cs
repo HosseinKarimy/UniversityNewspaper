@@ -32,3 +32,13 @@ public class UpdateGoodBannerValidation : AbstractValidator<UpdateGoodBannerDto>
         RuleFor(p=>p.Price).GreaterThanOrEqualTo(0);
     }
 }
+
+public record UpdateServiceBannerCommand(Guid BannerId, UpdateServiceBannerDto Banner) : UpdateBannerCommand(BannerId, Banner);
+public class UpdateServiceBannerValidation : AbstractValidator<UpdateServiceBannerDto>
+{
+    public UpdateServiceBannerValidation() : base()
+    {
+
+    }
+}
+
