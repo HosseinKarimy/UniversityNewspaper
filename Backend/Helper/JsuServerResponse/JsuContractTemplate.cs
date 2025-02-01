@@ -4,7 +4,7 @@ namespace Helper.JsuServerResponse;
 
 public static class JsuContractTemplate
 {
-    public static object GetContractTemplate(string status, object data)
+    public static object GetContractTemplate(string status, object? data = null)
     {
         if (string.IsNullOrWhiteSpace(status))
             throw new ArgumentException("Status cannot be null or empty.", nameof(status));
