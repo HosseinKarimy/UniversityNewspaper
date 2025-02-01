@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public abstract class BannerRepository<T>(DbSet<T> set) : Repository<T, Guid>(set), IBannerRepository<T> where T : Banner
+public abstract class BannerRepository<T>(DbSet<T> set) : Repository<T, BannerId>(set), IBannerRepository<T> where T : Banner
 {
     public async Task<List<T>> GetBannersByUserID(UserId userId, CancellationToken cancellationToken = default)
     {
