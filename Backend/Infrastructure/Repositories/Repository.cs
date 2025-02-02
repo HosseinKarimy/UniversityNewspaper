@@ -11,9 +11,9 @@ public abstract class Repository<T, Tid>(DbSet<T> dbSet) : IRepository<T, Tid> w
         return entity;
     }
 
-    public Task<T> DeleteAsync(T entity, CancellationToken cancellationToken = default)
+    public void Delete(T entity)
     {
-        throw new NotImplementedException();
+        dbSet.Remove(entity);
     }
 
     public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)
