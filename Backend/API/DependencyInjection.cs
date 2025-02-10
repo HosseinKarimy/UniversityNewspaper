@@ -1,5 +1,6 @@
 ﻿using Carter;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
 namespace API;
@@ -17,6 +18,12 @@ public static class DependencyInjection
     public static WebApplication UseApiServices(this WebApplication app)
     {
         app.MapCarter();
+
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")),
+            RequestPath = "/uploads"
+        });
 
         MapsterConfiguration.MapsterConfigurations();
         return app;

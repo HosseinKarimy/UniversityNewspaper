@@ -1,68 +1,46 @@
 ﻿using Application.Bazaar.BazzarHandlers.AddBanner;
 using Application.Bazaar.DTO;
 using Carter;
+using Helper.JsuServerResponse;
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace API.Bazaar.EndPoints;
 
-public record AddGoodBannerRequest(AddGoodBannerDto GoodBannerDto);
+public record AddGoodBannerRequest(string Title, string Description, Guid CategoryId, decimal Price)
+{
+    public IFormFile? Image { get; init; } = null;
+}
 public record AddServiceBannerRequest(AddServiceBannerDto ServiceBannerDto);
-public record AddEventBannerRequest(AddEventBannerDto EventBannerDto);
-public record AddBannerResponse(Guid BannerId);
 
 public class AddBannerEndpoint : CarterModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/banners/goods", async (AddGoodBannerRequest request, IMediator mediator) =>
+
+        var mapGroup = app.MapGroup("/banners");
+
+        MapBannerEndpoint<AddGoodBannerRequest, AddGoodBannerDto, AddGoodBannerCommand>("goods");
+        MapBannerEndpoint<AddServiceBannerRequest, AddServiceBannerDto, AddServiceBannerCommand>("services");
+
+        void MapBannerEndpoint<TRequst, TDto, TCommand>(string route) where TDto : AddBannerDto where TCommand : AddBannerCommand
         {
-            //create Command
-            var command = new AddGoodBannerCommand(request.GoodBannerDto);
+            mapGroup.MapPost($"/{route}", async ([FromForm] TRequst request, IMediator mediator) =>
+            {
 
-            //Send Command to Mediator Pipeline
-            AddBannerResult result = await mediator.Send(command);
+                var bannerDto = request.Adapt<TDto>();
 
-            //Return response to client
-            AddBannerResponse response = result.Adapt<AddBannerResponse>();
+                //create Command
+                var command = Activator.CreateInstance(typeof(TCommand), bannerDto);
 
-            return Results.Ok(response.BannerId);
-        });
+                //Send Command to Mediator Pipeline
+                AddBannerResult result = (await mediator.Send(command)) as AddBannerResult;
 
+                return Results.Ok(JsuContractTemplate.GetContractTemplate("success", result));
+            }).DisableAntiforgery();
 
-
-        app.MapPost("/banners/services", async (AddServiceBannerRequest request, IMediator mediator) =>
-        {
-            //create Command
-            var command = new AddServiceBannerCommand(request.ServiceBannerDto);
-
-
-            //Send Command to Mediator Pipeline
-            AddBannerResult result = await mediator.Send(command);
-
-
-            //Return response to client
-            AddBannerResponse response = result.Adapt<AddBannerResponse>();
-
-            return Results.Ok(response.BannerId);
-        });
-
-
-
-        app.MapPost("/banners/events", async (AddEventBannerRequest request, IMediator mediator) =>
-        {
-            //create Command
-            var command = new AddEventBannerCommand(request.EventBannerDto);
-
-
-            //Send Command to Mediator Pipeline
-            AddBannerResult result = await mediator.Send(command);
-
-
-            //Return response to client
-            AddBannerResponse response = result.Adapt<AddBannerResponse>();
-
-            return Results.Ok(response.BannerId);
-        });
+        }
     }
 }
