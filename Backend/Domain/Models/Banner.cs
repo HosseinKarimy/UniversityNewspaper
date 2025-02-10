@@ -14,7 +14,7 @@ public abstract class Banner
     public CategoryId CategoryId { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public ImageURL Image { get; set; }
+    public ImageURL? Image { get; set; }
     public List<Tag> Tags { get; set; }
 
     //Banner Status: You might want to add a property to indicate the status of a banner (e.g., "Active", "Inactive", "Pending Approval").
