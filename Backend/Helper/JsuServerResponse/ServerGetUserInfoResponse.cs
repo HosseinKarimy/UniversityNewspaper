@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Helper.ServerResponseDto;
+namespace Helper.JsuServerResponse;
 
 public class ServerGetUserInfoResponse
 {

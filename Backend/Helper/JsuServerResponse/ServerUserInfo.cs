@@ -1,4 +1,4 @@
-﻿namespace Helper.ServerResponseDto;
+﻿namespace Helper.JsuServerResponse;
 
 public class ServerUserInfo
 {
