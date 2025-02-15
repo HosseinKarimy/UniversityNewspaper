@@ -9,7 +9,7 @@ public abstract record GetBannerDto(
     int OwnerId,
     Guid CategoryId,
     DateTime CreatedAt,
-    string Image
+    string? Image
 );
 
 public record GetGoodBannerDto(
@@ -19,7 +19,7 @@ public record GetGoodBannerDto(
     int OwnerId,
     Guid CategoryId,
     DateTime CreatedAt,
-    string Image,
+    string? Image,
     decimal price
     ) : GetBannerDto (BannerId, Title, Description, OwnerId, CategoryId, CreatedAt, Image)
 {
@@ -32,7 +32,7 @@ public record GetGoodBannerDto(
             goodBanner.OwnerId.Value,
             goodBanner.CategoryId.Value.Value,
             goodBanner.CreatedAt,
-            goodBanner.Image.Value,
+            goodBanner.Image?.Value,
             goodBanner.Price.Value
         );
     }
@@ -45,7 +45,7 @@ public record GetServiceBannerDto(
     int OwnerId,
     Guid CategoryId,
     DateTime CreatedAt,
-    string Image,
+    string? Image,
     string ServiceType
     ) : GetBannerDto(BannerId, Title, Description, OwnerId, CategoryId, CreatedAt, Image)
 {
@@ -58,7 +58,7 @@ public record GetServiceBannerDto(
             serviceBanner.OwnerId.Value,
             serviceBanner.CategoryId.Value.Value,
             serviceBanner.CreatedAt,
-            serviceBanner.Image.Value,
+            serviceBanner.Image?.Value,
             serviceBanner.ServiceType
         );
     }

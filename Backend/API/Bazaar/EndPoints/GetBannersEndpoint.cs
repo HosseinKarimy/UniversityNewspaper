@@ -1,8 +1,8 @@
 ﻿using Application.Bazaar.BazzarHandlers.GetBanners;
 using Application.Bazaar.DTO;
 using Carter;
+using Domain.Enums;
 using Helper.JsuServerResponse;
-using Mapster;
 using MediatR;
 
 namespace API.Bazaar.EndPoints;
@@ -16,37 +16,27 @@ public class GetBannersEndpoint : CarterModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/Banners/goods", async (IMediator mediator) => {
+        var mapGroup = app.MapGroup("/banners");
+        MapGoodBanners<GetGoodBannerDto>(BannerType.Goods, "goods");
+        MapGoodBanners<GetServiceBannerDto>(BannerType.Service, "services");
 
-            //create Command
-            var query = new GetBannersQuery(Domain.Enums.BannerType.Goods);
+        void MapGoodBanners<TResult>(BannerType type , string route) where TResult : GetBannerDto
+        {
+            mapGroup.MapGet($"/{route}", async (IMediator mediator) =>
+            {
 
-            //Send Query to Mediator Pipeline
-            GetBannersResult result = await mediator.Send(query);
+                //create Command
+                var query = new GetBannersQuery(type);
 
-            //  GetBannersResponse response = result.Adapt<GetBannersResponse>();
-            var data = result.BannerDTOs.Cast<GetGoodBannerDto>();
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success" , data));
+                //Send Query to Mediator Pipeline
+                GetBannersResult result = await mediator.Send(query);
 
-        });
-
-        app.MapGet("/Banners/services", async (IMediator mediator) => {
-
-            //create Command
-            var query = new GetBannersQuery(Domain.Enums.BannerType.Service);
-
-            //Send Query to Mediator Pipeline
-            GetBannersResult result = await mediator.Send(query);
-
-            //GetBannersResponse response = result.Adapt<GetBannersResponse>();
-            var data = result.BannerDTOs.Cast<GetServiceBannerDto>();
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", data));
-        });
-
-        app.MapGet("/Banners/events", async (IMediator mediator) => {
-
-
-        });
+                //GetBannersResponse response = result.Adapt<GetBannersResponse>();
+                var data = result.BannerDTOs.Cast<TResult>()
+                .Select(banner => banner with { Image = "https://10.0.2.2:7159" + banner.Image }); ;
+                return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", data));
+            });
+        }
 
     }
 }
