@@ -12,10 +12,10 @@ public class DeleteBannerEndpoint : CarterModule
 { 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/banners/goods/{id:guid}", async (Guid id, IMediator mediator) =>
+        app.MapDelete("/banners/{id:guid}", async (Guid id, IMediator mediator) =>
         {
             //create Command
-            var command = new DeleteBannerCommand(id,Domain.Enums.BannerType.Goods);
+            var command = new DeleteBannerCommand(id);
 
             //Send Command to Mediator Pipeline
             DeleteBannerResult result = await mediator.Send<DeleteBannerResult>(command);
@@ -23,16 +23,6 @@ public class DeleteBannerEndpoint : CarterModule
             return Results.Ok(JsuContractTemplate.GetContractTemplate("Success"));
         });
 
-        app.MapDelete("/banners/services/{id:guid}", async (Guid id, IMediator mediator) =>
-        {
-            //create Command
-            var command = new DeleteBannerCommand(id, Domain.Enums.BannerType.Service);
-
-            //Send Command to Mediator Pipeline
-            DeleteBannerResult result = await mediator.Send<DeleteBannerResult>(command);
-
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success"));
-        });
 
     }
 }

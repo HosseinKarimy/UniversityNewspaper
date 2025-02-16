@@ -5,7 +5,7 @@ using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.DeleteBanner;
 
-public record DeleteBannerCommand(Guid BannerId , BannerType BannerType) : ICommand<DeleteBannerResult>
+public record DeleteBannerCommand(Guid BannerId) : ICommand<DeleteBannerResult>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }
