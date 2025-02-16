@@ -2,7 +2,6 @@
 
 namespace Domain.Models;
 
-public class User
+public class Event: Post<EventId>
 {
-    public UserId Id { get; set; }
 }

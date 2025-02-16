@@ -9,17 +9,10 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
 {
     public void Configure(EntityTypeBuilder<Banner> builder)
     {
-        builder.HasKey(u => u.BannerId);
+        builder.HasKey(u => u.Id);
 
-        builder.Property(p => p.BannerId)
+        builder.Property(p => p.Id)
             .HasConversion(bannerId => bannerId.Value, dbBannerId => BannerId.Of(dbBannerId));
-
-        builder.Property(p => p.Title)
-            .HasConversion(Title => Title.Value, dbTitle => Title.Of(dbTitle));
-
-        builder.Property(p => p.Description)
-            .HasConversion(Description => Description.Value, dbDescription => Description.Of(dbDescription));
-
 
         builder.Property(p => p.OwnerId)
             .HasConversion(OwnerId => OwnerId.Value, dbUserId => UserId.Of(dbUserId));
@@ -27,15 +20,13 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
         builder.Property(p => p.CategoryId)
            .HasConversion(CategoryId => CategoryId.Value, dbCategoryId => CategoryId.Of(dbCategoryId));
 
-        builder.Property(p => p.Image)
-            .HasConversion(Image => Image.Value, dbImage => ImageURL.Of(dbImage));
-
-        builder.UseTpcMappingStrategy();
+        builder.UseTphMappingStrategy()
+            .HasDiscriminator(b=>b.Type)
+            .HasValue<GoodBanner>(Domain.Enums.BannerType.Goods)
+            .HasValue<ServiceBanner>(Domain.Enums.BannerType.Service);
 
         builder.HasOne<User>(e => e.Owner).WithMany().HasForeignKey(b => b.OwnerId).IsRequired();
 
         builder.HasOne<Category>(e => e.Category).WithMany().HasForeignKey(b => b.CategoryId).IsRequired();
-
-        builder.HasMany<Tag>(b=>b.Tags).WithMany();
     }
 }

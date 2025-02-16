@@ -57,19 +57,3 @@ public class AddServiceBannerValidaion : AddBannerValidation<AddServiceBannerCom
 
     }
 }
-
-
-
-public record AddEventBannerCommand : AddBannerCommand
-{
-    public AddEventBannerCommand(AddEventBannerDto EventBannerDto) : base(EventBannerDto)
-    {
-    }
-}
-public class AddEventBannerValidation : AddBannerValidation<AddEventBannerCommand>
-{
-    public AddEventBannerValidation() : base()
-    {
-       
-    }
-}

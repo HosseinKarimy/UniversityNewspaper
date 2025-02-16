@@ -11,11 +11,9 @@ public class AppDbContext : DbContext
         
     }
 
-    public DbSet<GoodBanner> GoodBanners { get; set; }
-    public DbSet<ServiceBanner> ServiceBanners { get; set; }
-    public DbSet<EventBanner> EventBanners { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Banner> Banners { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

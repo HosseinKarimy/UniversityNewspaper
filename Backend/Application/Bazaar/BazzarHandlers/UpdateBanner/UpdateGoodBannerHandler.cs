@@ -10,7 +10,7 @@ public class UpdateGoodBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHand
 {
     public async Task<UpdateBannerResult> Handle(UpdateGoodBannerCommand request, CancellationToken cancellationToken)
     {
-        var userId = request.ContextCarrier.AuthenticatedUser!.UserId;
+        var userId = request.ContextCarrier.AuthenticatedUser!.Id;
         var banner = await bazaarUow.GoodBannerRepository.GetByIdAsync(BannerId.Of(request.BannerId) , cancellationToken);
         AuthorizeRequest(banner, userId);
         UpdateBannerObject(banner, request.Banner);
@@ -22,9 +22,9 @@ public class UpdateGoodBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHand
     private static void UpdateBannerObject(GoodBanner banner, UpdateGoodBannerDto bannerDto)
     {
         banner.CategoryId = CategoryId.Of(bannerDto.CategoryId);
-        banner.Description = Description.Of(bannerDto.Description);
-        banner.Title = Title.Of(bannerDto.Title);
-        banner.Image = ImageURL.Of(bannerDto.Image);
+        banner.Description = bannerDto.Description;
+        banner.Title = bannerDto.Title;
+        banner.ImageUrl = bannerDto.Image;
         banner.Price = CurrencyUnit.Of(bannerDto.Price);
     }
 

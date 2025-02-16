@@ -9,16 +9,16 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.HasKey(u => u.UserId);
+        builder.HasKey(u=>u.Id);
 
-        builder.Property(p => p.UserId)
-            .HasConversion(UserId => UserId.Value, dbUserId => UserId.Of(dbUserId));
+        builder.Property(p => p.Id)
+            .HasConversion(UserId => UserId.Value, dbUserId => UserId.Of(dbUserId)).ValueGeneratedNever();
 
         builder.HasData([
-            new User() {UserId = UserId.Of(1234) },
-            new User() {UserId = UserId.Of(1235) },
-            new User() {UserId = UserId.Of(1236) },
-            new User() {UserId = UserId.Of(8800) }
+            new User() {Id = UserId.Of(1234) },
+            new User() {Id = UserId.Of(1235) },
+            new User() {Id = UserId.Of(1236) },
+            new User() {Id = UserId.Of(8800) }
             ]);
     }
 }

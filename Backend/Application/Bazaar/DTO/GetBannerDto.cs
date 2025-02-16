@@ -26,13 +26,13 @@ public record GetGoodBannerDto(
     public static GetGoodBannerDto FromBanner(GoodBanner goodBanner)
     {
         return new GetGoodBannerDto(
-            goodBanner.BannerId.Value,
-            goodBanner.Title.Value,
-            goodBanner.Description.Value,
+            goodBanner.Id.Value,
+            goodBanner.Title,
+            goodBanner.Description,
             goodBanner.OwnerId.Value,
             goodBanner.CategoryId.Value.Value,
             goodBanner.CreatedAt,
-            goodBanner.Image?.Value,
+            goodBanner.ImageUrl,
             goodBanner.Price.Value
         );
     }
@@ -52,13 +52,13 @@ public record GetServiceBannerDto(
     public static GetServiceBannerDto FromBanner(ServiceBanner serviceBanner)
     {
         return new GetServiceBannerDto(
-            serviceBanner.BannerId.Value,
-            serviceBanner.Title.Value,
-            serviceBanner.Description.Value,
+            serviceBanner.Id.Value,
+            serviceBanner.Title,
+            serviceBanner.Description,
             serviceBanner.OwnerId.Value,
             serviceBanner.CategoryId.Value.Value,
             serviceBanner.CreatedAt,
-            serviceBanner.Image?.Value,
+            serviceBanner.ImageUrl,
             serviceBanner.ServiceType
         );
     }

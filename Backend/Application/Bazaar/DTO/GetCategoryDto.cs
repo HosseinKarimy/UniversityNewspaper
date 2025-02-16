@@ -8,7 +8,7 @@ public record GetCategoryDto(Guid CategoryId , string CategoryName , Guid? Paren
     {
         return new GetCategoryDto(
             category.CategoryId.Value!.Value,
-            category.CategoryName.Value,
+            category.CategoryName,
             category.ParentCategoryId?.Value,
             category.ChildCategories?.Select(c => GetCategoryDto.FromCategory(c)).ToList()           
         );

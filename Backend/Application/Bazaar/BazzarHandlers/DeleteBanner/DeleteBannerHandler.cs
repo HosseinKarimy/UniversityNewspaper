@@ -14,13 +14,12 @@ public class DeleteBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IRequestH
         {
             BannerType.Goods => await DeleteProcessAsync(bazaarUnitOfWork.GoodBannerRepository),
             BannerType.Service => await DeleteProcessAsync(bazaarUnitOfWork.ServiceBannerRepository),
-            BannerType.Event => throw new NotImplementedException(),
             _ => throw new Exception(),
         };
 
         async Task<DeleteBannerResult> DeleteProcessAsync<T>(IBannerRepository<T> bannerRepository) where T : Banner
         {
-            var userId = request.ContextCarrier.AuthenticatedUser!.UserId;
+            var userId = request.ContextCarrier.AuthenticatedUser!.Id;
             var banner = await bannerRepository.GetByIdAsync(BannerId.Of(request.BannerId), cancellationToken);
 
             //todo: check if banner is null

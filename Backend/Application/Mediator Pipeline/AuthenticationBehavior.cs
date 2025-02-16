@@ -1,10 +1,7 @@
 ﻿using Application.Bazaar.BazzarRepositories;
-using Application.Exceptions;
 using Domain.Models;
 using Domain.StronglyTypes;
 using Helper.CQRS;
-using Helper.Helpers;
-using Helper.ServerResponseDto;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
 
@@ -20,12 +17,12 @@ public class AuthenticationBehavior<TRequest>(IHttpContextAccessor httpContextAc
         ////Send Token To MainJsuServer for Authenticate the user and get user info
         //var result = await new HttpRequestSender(token).GetUserInfoFromMainServer() ?? throw new UnauthorizedExeption();
 
-        ////Extrace UserId from ServerResponse
+        ////Extrace Id from ServerResponse
         //var response = ServerGetUserInfoResponse.FromJsonRequest(result) ?? throw new Exception("Cant Parse Server Response");
         //var user = await userRepository.AddUserIfNotExistAsync(CreateNewUser(response.User.Id), cancellationToken);
         //request.ContextCarrier.AuthenticatedUser = user;
-        request.ContextCarrier.AuthenticatedUser = new() { UserId = UserId.Of(8800) };
+        request.ContextCarrier.AuthenticatedUser = new() { Id = UserId.Of(8800) };
     }
 
-    private static User CreateNewUser(int userId) => new() { UserId = UserId.Of(userId) };
+    private static User CreateNewUser(int userId) => new() { Id = UserId.Of(userId) };
 }

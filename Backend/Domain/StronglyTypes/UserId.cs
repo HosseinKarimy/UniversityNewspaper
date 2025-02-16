@@ -1,11 +1,7 @@
 ﻿namespace Domain.StronglyTypes;
 
-public record UserId
+public readonly record struct UserId(int Value)
 {
-    public int Value { get; set; }
-
-    public UserId(int value) => Value = value;
-
     public static UserId Of(int value)
     {
         ArgumentNullException.ThrowIfNull(value);

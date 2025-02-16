@@ -16,7 +16,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User> AddUserIfNotExistAsync(User user, CancellationToken cancellationToken = default)
     {
-        var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.UserId == user.UserId, cancellationToken);
+        var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Id == user.Id, cancellationToken);
 
         if (existingUser != null)
         {

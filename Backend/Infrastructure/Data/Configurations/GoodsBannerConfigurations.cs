@@ -14,13 +14,13 @@ namespace Infrastructure.Data.Configurations
             builder.HasData(
                 [
                 new GoodBanner(){
-                      BannerId = BannerId.Of(Guid.NewGuid()),
+                      Id = BannerId.Of(Guid.NewGuid()),
                       CategoryId = CategoryId.Of("af201e39-a2d5-4ccd-9890-fd18ee6490e2"),
                       OwnerId = UserId.Of(8800),
                       CreatedAt = DateTime.Now,
-                      Description = Description.Of("تدریس درس ساختمان داده در دانشگاه"),
-                      Title = Title.Of("تدریس ساحتمان"),
-                      Image = ImageURL.Of("image 2"),
+                      Description = "تدریس درس ساختمان داده در دانشگاه",
+                      Title = "تدریس ساحتمان",
+                      ImageUrl = "image 2",
                       Price = CurrencyUnit.Of((decimal)1.23)
                 }
                 ]);

@@ -17,8 +17,6 @@ public class GetBannersHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IQueryHandl
             case BannerType.Service:
                 var services = await bazaarUnitOfWork.ServiceBannerRepository.GetAllAsync(cancellationToken);
                 return new GetBannersResult(services.Select(banner => (GetBannerDto)GetServiceBannerDto.FromBanner(banner)).ToList());
-            case BannerType.Event:
-                throw new NotImplementedException();
                 
             default:
                 throw new Exception();

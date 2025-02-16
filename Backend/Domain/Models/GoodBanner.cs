@@ -1,5 +1,4 @@
-﻿using Domain.Enums;
-using Domain.StronglyTypes;
+﻿using Domain.StronglyTypes;
 
 namespace Domain.Models;
 

@@ -2,7 +2,6 @@
 
 namespace Domain.Models;
 
-public class User
+public class Announcement: Post<AnnouncementId>
 {
-    public UserId Id { get; set; }
 }

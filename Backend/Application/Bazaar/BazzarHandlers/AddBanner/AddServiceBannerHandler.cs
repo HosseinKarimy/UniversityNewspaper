@@ -10,20 +10,20 @@ public class AddServiceBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IComm
 {
     public async Task<AddBannerResult> Handle(AddServiceBannerCommand request, CancellationToken cancellationToken)
     {
-        var banner = CreateNewBanner((request.BannerDto as AddServiceBannerDto), request.ContextCarrier.AuthenticatedUser.UserId.Value);
+        var banner = CreateNewBanner((request.BannerDto as AddServiceBannerDto), request.ContextCarrier.AuthenticatedUser.Id.Value);
         banner = await bazaarUnitOfWork.ServiceBannerRepository.AddAsync(banner, cancellationToken);
         await bazaarUnitOfWork.SaveChangesAsync(cancellationToken);
-        return new AddBannerResult(banner.BannerId.Value);
+        return new AddBannerResult(banner.Id.Value);
     }
 
     private static ServiceBanner CreateNewBanner(AddServiceBannerDto? serviceBannerDto, int userId) => new()
     {
-        BannerId = BannerId.Of(Guid.NewGuid()),
+        Id = BannerId.Of(Guid.NewGuid()),
         CategoryId = CategoryId.Of(serviceBannerDto.CategoryId),
         OwnerId = UserId.Of(userId),
         CreatedAt = DateTime.Now,
-        Description = Description.Of(serviceBannerDto.Description),
-        Title = Title.Of(serviceBannerDto.Title),
-        Image = ImageURL.Of(serviceBannerDto.Image)
+        Description = serviceBannerDto.Description,
+        Title = serviceBannerDto.Title,
+        ImageUrl = serviceBannerDto.Image
     };
 }

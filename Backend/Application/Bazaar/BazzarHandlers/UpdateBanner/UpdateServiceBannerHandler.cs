@@ -10,7 +10,7 @@ public class UpdateServiceBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestH
 {
     public async Task<UpdateBannerResult> Handle(UpdateServiceBannerCommand request, CancellationToken cancellationToken)
     {
-        var userId = request.ContextCarrier.AuthenticatedUser!.UserId;
+        var userId = request.ContextCarrier.AuthenticatedUser!.Id;
         var banner = await bazaarUow.ServiceBannerRepository.GetByIdAsync(BannerId.Of(request.BannerId), cancellationToken);
         AuthorizeRequest(banner, userId);
         UpdateBannerObject(banner!, request.Banner);
@@ -23,9 +23,9 @@ public class UpdateServiceBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestH
     private static void UpdateBannerObject(ServiceBanner banner, UpdateServiceBannerDto bannerDto)
     {
         banner.CategoryId = CategoryId.Of(bannerDto.CategoryId);
-        banner.Description = Description.Of(bannerDto.Description);
-        banner.Title = Title.Of(bannerDto.Title);
-        banner.Image = ImageURL.Of(bannerDto.Image);
+        banner.Description = bannerDto.Description;
+        banner.Title = bannerDto.Title;
+        banner.ImageUrl = bannerDto.Image;
     }
 
     private static void AuthorizeRequest(ServiceBanner? banner, UserId requestUserId)

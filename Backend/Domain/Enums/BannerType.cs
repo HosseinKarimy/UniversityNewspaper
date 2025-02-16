@@ -3,6 +3,5 @@
 public enum BannerType
 {
     Goods,
-    Service,
-    Event
+    Service
 }

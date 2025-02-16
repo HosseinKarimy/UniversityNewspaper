@@ -10,7 +10,7 @@ public class GetMyBannersHandler(IBazaarUnitOfWork bannerRepository) : IQueryHan
 {
     public async Task<GetMyBannersResult> Handle(GetMyBannersQuery request, CancellationToken cancellationToken)
     {
-        UserId userId = request.ContextCarrier.AuthenticatedUser.UserId;
+        UserId userId = request.ContextCarrier.AuthenticatedUser.Id;
         List<GoodBanner> goodBanners = await bannerRepository.GoodBannerRepository.GetBannersByUserID(userId
            , cancellationToken);
         List<ServiceBanner> serviceBanners = await bannerRepository.ServiceBannerRepository.GetBannersByUserID(

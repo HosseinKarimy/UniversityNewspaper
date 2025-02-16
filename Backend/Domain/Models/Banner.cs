@@ -3,19 +3,12 @@ using Domain.StronglyTypes;
 
 namespace Domain.Models;
 
-public abstract class Banner
+public abstract class Banner : Post<BannerId>
 {
-    public BannerId BannerId { get; set; }
-    public Title Title { get; set; }
-    public Description Description { get; set; }
-    public User Owner { get; set; }
-    public UserId OwnerId { get; set; }
+    public BannerType Type { get; set; }
     public Category Category { get; set; }
     public CategoryId CategoryId { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
-    public ImageURL? Image { get; set; }
-    public List<Tag> Tags { get; set; }
+    public string ImageUrl { get; set; }
 
     //Banner Status: You might want to add a property to indicate the status of a banner (e.g., "Active", "Inactive", "Pending Approval").
 
