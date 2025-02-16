@@ -2,7 +2,7 @@
 
 namespace Application.Bazaar.DTO;
 
-public abstract record GetBannerDto(
+public abstract record BannerDto(
     Guid BannerId,
     string Title,
     string Description,
@@ -12,7 +12,7 @@ public abstract record GetBannerDto(
     string? Image
 );
 
-public record GetGoodBannerDto(
+public record GoodBannerDto(
     Guid BannerId,
     string Title,
     string Description,
@@ -21,11 +21,11 @@ public record GetGoodBannerDto(
     DateTime CreatedAt,
     string? Image,
     decimal price
-    ) : GetBannerDto (BannerId, Title, Description, OwnerId, CategoryId, CreatedAt, Image)
+    ) : BannerDto (BannerId, Title, Description, OwnerId, CategoryId, CreatedAt, Image)
 {
-    public static GetGoodBannerDto FromBanner(GoodBanner goodBanner)
+    public static GoodBannerDto FromBanner(GoodBanner goodBanner)
     {
-        return new GetGoodBannerDto(
+        return new GoodBannerDto(
             goodBanner.Id.Value,
             goodBanner.Title,
             goodBanner.Description,
@@ -38,7 +38,7 @@ public record GetGoodBannerDto(
     }
 }
 
-public record GetServiceBannerDto(
+public record ServiceBannerDto(
     Guid BannerId,
     string Title,
     string Description,
@@ -47,11 +47,11 @@ public record GetServiceBannerDto(
     DateTime CreatedAt,
     string? Image,
     string ServiceType
-    ) : GetBannerDto(BannerId, Title, Description, OwnerId, CategoryId, CreatedAt, Image)
+    ) : BannerDto(BannerId, Title, Description, OwnerId, CategoryId, CreatedAt, Image)
 {
-    public static GetServiceBannerDto FromBanner(ServiceBanner serviceBanner)
+    public static ServiceBannerDto FromBanner(ServiceBanner serviceBanner)
     {
-        return new GetServiceBannerDto(
+        return new ServiceBannerDto(
             serviceBanner.Id.Value,
             serviceBanner.Title,
             serviceBanner.Description,

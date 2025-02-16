@@ -1,6 +1,6 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Application.Bazaar.DTO;
-using Domain.Enums;
+using Domain.Models;
 using Helper.CQRS;
 
 namespace Application.Bazaar.BazzarHandlers.GetBanners;
@@ -9,17 +9,9 @@ public class GetBannersHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IQueryHandl
 {
     public async Task<GetBannersResult> Handle(GetBannersQuery request, CancellationToken cancellationToken)
     {
-        switch (request.RequestedBannerType)
-        {
-            case BannerType.Goods:
-               var goods = await bazaarUnitOfWork.GoodBannerRepository.GetAllAsync(cancellationToken);
-                return new GetBannersResult(goods.Select(banner => (GetBannerDto)GetGoodBannerDto.FromBanner(banner)).ToList());
-            case BannerType.Service:
-                var services = await bazaarUnitOfWork.ServiceBannerRepository.GetAllAsync(cancellationToken);
-                return new GetBannersResult(services.Select(banner => (GetBannerDto)GetServiceBannerDto.FromBanner(banner)).ToList());
-                
-            default:
-                throw new Exception();
-        }
+        var banners = await bazaarUnitOfWork.BannerRepository.GetAllAsync(cancellationToken);
+        var goods = banners.OfType<GoodBanner>().Select(banner => GoodBannerDto.FromBanner(banner)).ToList();
+        var services = banners.OfType<ServiceBanner>().Select(banner => ServiceBannerDto.FromBanner(banner)).ToList();
+        return new GetBannersResult(goods, services);
     }
 }
