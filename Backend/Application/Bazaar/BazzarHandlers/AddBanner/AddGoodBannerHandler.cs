@@ -10,9 +10,9 @@ public class AddGoodBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : ICommand
     public async Task<AddBannerResult> Handle(AddGoodBannerCommand request, CancellationToken cancellationToken)
     {
         var banner = CreateNewBanner((request.BannerDto as AddGoodBannerDto), request.ContextCarrier.AuthenticatedUser.Id.Value);
-        banner = await bazaarUnitOfWork.GoodBannerRepository.AddAsync(banner, cancellationToken);
+        var newbanner = await bazaarUnitOfWork.BannerRepository.AddAsync(banner, cancellationToken);
         await bazaarUnitOfWork.SaveChangesAsync(cancellationToken);
-        return new AddBannerResult(banner.Id.Value);
+        return new AddBannerResult(newbanner.Id.Value);
     }
 
     private static GoodBanner CreateNewBanner(AddGoodBannerDto goodBannerDto, int userId) => new()

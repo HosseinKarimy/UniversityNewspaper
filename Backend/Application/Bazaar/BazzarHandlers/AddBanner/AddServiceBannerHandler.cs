@@ -11,7 +11,7 @@ public class AddServiceBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IComm
     public async Task<AddBannerResult> Handle(AddServiceBannerCommand request, CancellationToken cancellationToken)
     {
         var banner = CreateNewBanner((request.BannerDto as AddServiceBannerDto), request.ContextCarrier.AuthenticatedUser.Id.Value);
-        banner = await bazaarUnitOfWork.ServiceBannerRepository.AddAsync(banner, cancellationToken);
+        var newbanner = await bazaarUnitOfWork.BannerRepository.AddAsync(banner, cancellationToken);
         await bazaarUnitOfWork.SaveChangesAsync(cancellationToken);
         return new AddBannerResult(banner.Id.Value);
     }
