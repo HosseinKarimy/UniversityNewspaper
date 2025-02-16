@@ -9,4 +9,4 @@ public class GetMyBannersQuery : IQuery<GetMyBannersResult>
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }
 
-public record GetMyBannersResult(List<GetGoodBannerDto> GoodBannersDto , List<GetServiceBannerDto> ServiceBannersDto);
+public record GetMyBannersResult(List<GoodBannerDto> GoodBannersDto , List<ServiceBannerDto> ServiceBannersDto);

@@ -8,7 +8,7 @@ using MediatR;
 namespace API.Bazaar.EndPoints;
 
 public record GetMyBannersRequest();
-public record GetMyBannersResponse(IEnumerable<GetGoodBannerDto> GoodBannersDto, IEnumerable<GetServiceBannerDto> ServiceBannersDto);
+public record GetMyBannersResponse(IEnumerable<GoodBannerDto> GoodBannersDto, IEnumerable<ServiceBannerDto> ServiceBannersDto);
 
 public class GetMyBannersEndpoint : CarterModule
 {
@@ -22,7 +22,7 @@ public class GetMyBannersEndpoint : CarterModule
             //Send Query to Mediator Pipeline
             GetMyBannersResult result = await mediator.Send(query);
 
-            GetMyBannersResponse response = new(result.GoodBannersDto.Select(banner => banner with { Image = "https://10.0.2.2:7159" + banner.Image }), result.ServiceBannersDto.Select(banner => banner with { Image = "https://10.0.2.2:7159" + banner.Image }));
+            GetMyBannersResponse response = result.Adapt<GetMyBannersResponse>();
 
             return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));
 

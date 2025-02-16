@@ -11,13 +11,10 @@ public class GetMyBannersHandler(IBazaarUnitOfWork bannerRepository) : IQueryHan
     public async Task<GetMyBannersResult> Handle(GetMyBannersQuery request, CancellationToken cancellationToken)
     {
         UserId userId = request.ContextCarrier.AuthenticatedUser.Id;
-        List<GoodBanner> goodBanners = await bannerRepository.GoodBannerRepository.GetBannersByUserID(userId
-           , cancellationToken);
-        List<ServiceBanner> serviceBanners = await bannerRepository.ServiceBannerRepository.GetBannersByUserID(
-            userId, cancellationToken);
-        List<GetGoodBannerDto> goodBannerDto = goodBanners.Select(banner => GetGoodBannerDto.FromBanner(banner)).ToList();
-        List<GetServiceBannerDto> serviceBannerDto = serviceBanners.Select(banner => GetServiceBannerDto.FromBanner(banner)).ToList();
-        return new GetMyBannersResult(goodBannerDto, serviceBannerDto);
-     
+        List<Banner> banners = await bannerRepository.BannerRepository.GetBannersByUserID(userId, cancellationToken);
+        var goods = banners.OfType<GoodBanner>().Select(banner => GoodBannerDto.FromBanner(banner)).ToList();
+        var services = banners.OfType<ServiceBanner>().Select(banner => ServiceBannerDto.FromBanner(banner)).ToList();
+
+        return new GetMyBannersResult(goods, services);
     }
 }
