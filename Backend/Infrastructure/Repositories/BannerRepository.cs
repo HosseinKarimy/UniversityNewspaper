@@ -1,14 +1,15 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Domain.Models;
 using Domain.StronglyTypes;
+using Infrastructure.Data.ApplicaionDbContetxt;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public abstract class BannerRepository<T>(DbSet<T> set) : Repository<T, BannerId>(set), IBannerRepository<T> where T : Banner
+public class BannerRepository(AppDbContext dbContext) : Repository<Banner, BannerId>(dbContext.Banners), IBannerRepository
 {
-    public async Task<List<T>> GetBannersByUserID(UserId userId, CancellationToken cancellationToken = default)
+    public async Task<List<Banner>> GetBannersByUserID(UserId userId, CancellationToken cancellationToken)
     {
-        return await set.Where(banner => banner.OwnerId == userId).ToListAsync(cancellationToken);
+        return await dbContext.Banners.Where(banner => banner.OwnerId == userId).ToListAsync(cancellationToken);
     }
 }
