@@ -11,10 +11,10 @@ public class UpdateGoodBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHand
     public async Task<UpdateBannerResult> Handle(UpdateGoodBannerCommand request, CancellationToken cancellationToken)
     {
         var userId = request.ContextCarrier.AuthenticatedUser!.Id;
-        var banner = await bazaarUow.GoodBannerRepository.GetByIdAsync(BannerId.Of(request.BannerId) , cancellationToken);
+        var banner = await bazaarUow.BannerRepository.GetByIdAsync(BannerId.Of(request.BannerId), cancellationToken) as GoodBanner;
         AuthorizeRequest(banner, userId);
         UpdateBannerObject(banner, request.Banner);
-        bazaarUow.GoodBannerRepository.Update(banner);
+        bazaarUow.BannerRepository.Update(banner);
         await bazaarUow.SaveChangesAsync(cancellationToken);
         return new UpdateBannerResult(true);
     }
