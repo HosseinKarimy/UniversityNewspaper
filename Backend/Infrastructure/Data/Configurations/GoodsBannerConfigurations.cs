@@ -18,9 +18,9 @@ namespace Infrastructure.Data.Configurations
                       CategoryId = CategoryId.Of("af201e39-a2d5-4ccd-9890-fd18ee6490e2"),
                       OwnerId = UserId.Of(8800),
                       CreatedAt = DateTime.Now,
-                      Description = "تدریس درس ساختمان داده در دانشگاه",
-                      Title = "تدریس ساحتمان",
-                      ImageUrl = "image 2",
+                      Description = "جزوه دست نویس ساختمان استاد عنایت ترم 403",
+                      Title = "جزوه ساحتمان",
+                      ImageUrl = "/image 2.png",
                       Price = CurrencyUnit.Of((decimal)1.23)
                 }
                 ]);
