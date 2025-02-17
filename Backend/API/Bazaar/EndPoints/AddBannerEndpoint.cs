@@ -13,7 +13,10 @@ public record AddGoodBannerRequest(string Title, string Description, Guid Catego
 {
     public IFormFile? Image { get; init; } = null;
 }
-public record AddServiceBannerRequest(AddServiceBannerDto ServiceBannerDto);
+public record AddServiceBannerRequest(string Title, string Description, Guid CategoryId)
+{
+    public IFormFile? Image { get; init; } = null;
+}
 
 public class AddBannerEndpoint : CarterModule
 {
