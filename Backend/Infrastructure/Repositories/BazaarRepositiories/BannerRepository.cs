@@ -4,7 +4,7 @@ using Domain.StronglyTypes;
 using Infrastructure.Data.ApplicaionDbContetxt;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure.Repositories.BazaarRepositiories;
 
 public class BannerRepository(AppDbContext dbContext) : Repository<Banner, BannerId>(dbContext.Banners), IBannerRepository
 {

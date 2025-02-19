@@ -4,9 +4,9 @@ using Domain.Models;
 using Infrastructure.Data.ApplicaionDbContetxt;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure.Repositories.BazaarRepositiories;
 
-public class CategoryRepository(AppDbContext dbContext) : Repository<Category,Guid>(dbContext.Categories) , ICategoryRepository
+public class CategoryRepository(AppDbContext dbContext) : Repository<Category, Guid>(dbContext.Categories), ICategoryRepository
 {
     public async Task<List<Category>> GetCategorieshierarchyAsync(CancellationToken cancellationToken = default)
     {

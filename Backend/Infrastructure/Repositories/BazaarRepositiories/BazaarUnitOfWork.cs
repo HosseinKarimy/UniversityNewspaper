@@ -1,7 +1,7 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Infrastructure.Data.ApplicaionDbContetxt;
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure.Repositories.BazaarRepositiories;
 
 public class BazaarUnitOfWork(AppDbContext appDbContext) : IBazaarUnitOfWork
 {
