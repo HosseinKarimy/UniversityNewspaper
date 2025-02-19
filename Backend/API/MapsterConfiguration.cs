@@ -1,4 +1,5 @@
 ﻿using API.Bazaar.EndPoints;
+using API.Events;
 using Application.Bazaar.DTO;
 using Application.Events.DTOs;
 using Helper.Helpers;

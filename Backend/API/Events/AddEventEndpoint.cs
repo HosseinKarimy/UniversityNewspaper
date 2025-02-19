@@ -7,7 +7,7 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Bazaar.EndPoints;
+namespace API.Events;
 
 public record AddEventsRequest(string Title)
 {
