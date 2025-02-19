@@ -1,0 +1,15 @@
+﻿using Application.Events.DTOs;
+using Application.Events.EventsRepositories;
+using Helper.CQRS;
+
+namespace Application.Events.EventsHandlers.GetEvents;
+
+public class GetEventsHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandler<GetEventsQuery, GetEventsResult>
+{
+    public async Task<GetEventsResult> Handle(GetEventsQuery request, CancellationToken cancellationToken)
+    {
+        var Events = await eventsUnitOfWork.EventsRepository.GetAllAsync(cancellationToken);
+        var eventsDto = Events.Select(e => EventDto.FromEvent(e)).ToList();
+        return new GetEventsResult(eventsDto);
+    }
+}

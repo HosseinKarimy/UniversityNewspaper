@@ -1,7 +1,6 @@
 ﻿using Application.Bazaar.BazzarHandlers.GetBanners;
 using Application.Bazaar.DTO;
 using Carter;
-using Domain.Enums;
 using Helper.JsuServerResponse;
 using Mapster;
 using MediatR;
