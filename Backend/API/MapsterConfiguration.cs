@@ -1,5 +1,6 @@
 ﻿using API.Bazaar.EndPoints;
 using Application.Bazaar.DTO;
+using Application.Events.DTOs;
 using Helper.Helpers;
 using Mapster;
 namespace API;
@@ -28,5 +29,10 @@ public class MapsterConfiguration
         TypeAdapterConfig<ServiceBannerDto, ServiceBannerDto>
          .NewConfig()
           .Inherits<BannerDto, BannerDto>();
+
+        TypeAdapterConfig<AddEventsRequest, AddEventsDto>
+          .NewConfig()
+          .Map(dest => dest.Targets, src => new TargetUsersDto(src.TargetsRole))
+          .Map(dest => dest.RegistrationInfo, src => new RegistrationInfoDto(src.RegisterDeadline , src.RegisterCapacity , src.RegisterFee , src.PaymentType));
     }
 }
