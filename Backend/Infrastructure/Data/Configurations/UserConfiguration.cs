@@ -15,10 +15,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasConversion(UserId => UserId.Value, dbUserId => UserId.Of(dbUserId)).ValueGeneratedNever();
 
         builder.HasData([
-            new User() {Id = UserId.Of(1234) },
-            new User() {Id = UserId.Of(1235) },
-            new User() {Id = UserId.Of(1236) },
-            new User() {Id = UserId.Of(8800) }
+            new User() {Id = UserId.Of(1234) , Role ="teacher" },
+            new User() {Id = UserId.Of(1235) , Role ="teacher" },
+            new User() {Id = UserId.Of(1236) , Role ="teacher" },
+            new User() {Id = UserId.Of(8800) , Role ="student" }
             ]);
     }
 }
