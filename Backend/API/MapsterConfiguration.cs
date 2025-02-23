@@ -35,5 +35,9 @@ public class MapsterConfiguration
           .NewConfig()
           .Map(dest => dest.Targets, src => new TargetUsersDto(src.TargetsRole))
           .Map(dest => dest.RegistrationInfo, src => new RegistrationInfoDto(src.RegisterDeadline , src.RegisterCapacity , src.RegisterFee , src.PaymentType));
+
+        TypeAdapterConfig<EventDto, EventResponseDto>
+          .NewConfig()
+          .Map(dest => dest.ImageUrl, src => string.IsNullOrWhiteSpace(src.ImageUrl) ? null : "https://10.0.2.2:7159" + src.ImageUrl);
     }
 }
