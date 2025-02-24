@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Enums;
+using Domain.Models;
 using Domain.StronglyTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -20,5 +21,19 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
         builder.OwnsOne(p => p.Targets);
 
         builder.UseTphMappingStrategy();
+
+        builder.HasData(
+                [
+                new Event(){
+                      Id = EventId.Of(Guid.NewGuid()),
+                      OwnerId = UserId.Of(8800),
+                      CreatedAt = DateTime.Now,
+                      Description = "\r\n🎤با اجرای مجریان توانمند\r\n\r\n📜آیتم های جذاب و مفرح این برنامه:\r\n\r\n\U0001f9d1‍🎓مناظره جنجالی دانشجویی\r\n\U0001fa91صندلی داغ با حضور رئیس اداره کار و اساتید\r\n🎁مسابقات جذاب همراه با اهدای جوایز ارزنده\r\n🎛🎚🎙پخش موسیقی و تصنیف خوانی\r\n🎇نورافشانی\r\nو...",
+                      Title = "🎉جشن بزرگ روز مهندس و روز جوان🎉",
+                      Location = "سالن ورزشی دانشگاه",
+                      Organizers = [Department.Law , Department.Nursing],
+                      Date = DateTime.Now
+                }
+                ]);
     }
 }
