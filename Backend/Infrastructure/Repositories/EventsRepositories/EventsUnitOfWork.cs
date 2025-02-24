@@ -10,7 +10,7 @@ public class EventsUnitOfWork(AppDbContext appDbContext) : IEventsUnitOfWork
 
     public IEventsRepository EventsRepository => _EventsRepository;
 
-    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return await appDbContext.SaveChangesAsync(cancellationToken);
     }
