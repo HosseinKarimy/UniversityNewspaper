@@ -22,6 +22,10 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
                 Id = EventId.Of(Guid.NewGuid()),
                 Title = eventDto.Title,
                 Description = eventDto.Description,
+                Date = eventDto.Date,
+                ImageURl = eventDto.ImageURl,
+                Location = eventDto.Location,                
+                Organizers = eventDto.Organizers,
                 OwnerId = UserId.Of(userId),
                 CreatedAt = DateTime.Now,
                 RegistrationInfo = new RegistrationInfo()
@@ -29,11 +33,12 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
                     Deadline = eventDto.RegistrationInfo?.Deadline,
                     Capacity = eventDto.RegistrationInfo?.Capacity,
                     Fee = eventDto.RegistrationInfo?.Fee,
-                    PaymentType = eventDto.RegistrationInfo?.PaymentType
+                    PaymentType = eventDto.RegistrationInfo?.PaymentType                                        
                 },
                 Targets = new TargetUsers()
                 {
-                    Role = eventDto.Targets?.Role
+                    Roles = eventDto.Targets?.TargetsRoles,
+                    TargetGroups = eventDto.Targets?.TargetGroups
                 }
             };
         }

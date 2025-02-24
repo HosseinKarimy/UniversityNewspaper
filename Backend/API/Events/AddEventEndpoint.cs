@@ -12,7 +12,12 @@ namespace API.Events;
 public record AddEventsRequest(string Title)
 {
     public string? Description { get; set; } = null;
-    public string? TargetsRole { get; set; } = null;
+    public string? TargetsRoles { get; set; } = null;
+    public string? TargetGroups { get; set; } = null;
+    public DateTime? Date { get; set; } = null;
+    public IFormFile? Image { get; set; } = null;
+    public string? Location { get; set; } = null;
+    public string? Organizers { get; set; } = null;
     public DateOnly? RegisterDeadline { get; set; } = null;
     public int? RegisterCapacity { get; set; } = null;
     public decimal? RegisterFee { get; set; } = null;
