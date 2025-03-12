@@ -11,4 +11,10 @@ public class Event : Post<EventId>
     public List<Department>? Organizers { get; set; }
     public TargetUsers? Targets { get; set; }
     public RegistrationInfo? RegistrationInfo { get; set; }
+
+    public List<User>? RegisteredUsers { get; set; }
+
+    //not mapped
+    public List<User>? RegisteredUsersCount { get; set; }
+
 }
