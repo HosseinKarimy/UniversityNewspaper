@@ -2,11 +2,17 @@
 using Domain.Models;
 using Domain.StronglyTypes;
 using Infrastructure.Data.ApplicaionDbContetxt;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories.EventsRepositories;
 
 public class EventsRepositories(AppDbContext dbContext) : Repository<Event, EventId>(dbContext.Events), IEventsRepository
 {
+
+    public new async Task<List<Event>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Events.Include(e=>e.RegisteredUsers).ToListAsync(cancellationToken);
+    }
 
     public new async Task<Event?> GetByIdAsync(EventId id, CancellationToken cancellationToken = default)
     {

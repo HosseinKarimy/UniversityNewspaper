@@ -13,8 +13,4 @@ public class Event : Post<EventId>
     public RegistrationInfo? RegistrationInfo { get; set; }
 
     public List<User>? RegisteredUsers { get; set; }
-
-    //not mapped
-    public List<User>? RegisteredUsersCount { get; set; }
-
 }
