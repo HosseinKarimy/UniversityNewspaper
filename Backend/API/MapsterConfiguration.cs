@@ -1,5 +1,6 @@
 ﻿using API.Bazaar.EndPoints;
 using API.Events;
+using API.Events.DTO;
 using Application.Bazaar.DTO;
 using Application.Events.DTOs;
 using Domain.Enums;
@@ -41,7 +42,10 @@ public class MapsterConfiguration
           .Map(dest => dest.RegistrationInfo, src => new RegistrationInfoDto(src.RegisterDeadline , src.RegisterCapacity , src.RegisterFee , src.PaymentType))
           .Map(dest => dest.ImageURl, src => FileHelper.SaveFile(src.Image));
 
-        TypeAdapterConfig<EventDto, EventResponseDto>
+        TypeAdapterConfig<EventDto, EventPreviewDto>
+          .NewConfig()
+          .Map(dest => dest.ImageUrl, src => string.IsNullOrWhiteSpace(src.ImageUrl) ? null : "https://10.0.2.2:7159" + src.ImageUrl);
+        TypeAdapterConfig<EventDto, EventDetailsDto>
           .NewConfig()
           .Map(dest => dest.ImageUrl, src => string.IsNullOrWhiteSpace(src.ImageUrl) ? null : "https://10.0.2.2:7159" + src.ImageUrl);
 

@@ -1,4 +1,5 @@
-﻿using Application.Events.EventsHandlers.GetEvents;
+﻿using API.Events.DTO;
+using Application.Events.EventsHandlers.GetEvents;
 using Carter;
 using Domain.Enums;
 using Helper.JsuServerResponse;
@@ -7,8 +8,7 @@ using MediatR;
 
 namespace API.Events;
 
-public record EventResponseDto(Guid EventId, string? Title, string? Description, int OwnerId, string? ImageUrl, string? Location, DateTime? Date, DateTime CreatedAt , List<string>? Organizers, List<string>? TargetsRole, List<string>? TargetsGroups , DateOnly? RegisterDeadline, int? RegisterCapacity, decimal? RegisterFee, PaymentType? PaymentType, int? RegisteredUsersCount , List<int> RegisteredUsers);
-public record EventResponse(List<EventResponseDto> Events);
+public record EventResponse(List<EventPreviewDto> Events);
 public class GetEventsEndpoint : CarterModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
@@ -25,7 +25,7 @@ public class GetEventsEndpoint : CarterModule
         {
             var query = new GetEventQuery(Domain.StronglyTypes.EventId.Of(id));
             var result = await mediator.Send(query);
-            var response = result.Event.Adapt<EventResponseDto>();
+            var response = result.Event.Adapt<EventDetailsDto>();
             return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));
         }).DisableAntiforgery();
     }
