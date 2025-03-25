@@ -7,6 +7,7 @@ public record EventDto(
     Guid EventId,
     string? Title,
     string? Description,
+    string? AdditionalInfoPairs,
     int OwnerId,
     string? ImageUrl,
     string? Location,
@@ -24,6 +25,6 @@ public record EventDto(
 {
     public static EventDto FromEvent(Event @event)
     {
-        return new EventDto(@event.Id.Value , @event.Title, @event.Description,@event.OwnerId.Value , @event.ImageURl , @event.Location ,@event.Date , @event.CreatedAt,@event.Organizers, @event.Targets?.Roles,@event.Targets?.TargetGroups , @event.RegistrationInfo?.Deadline, @event.RegistrationInfo?.Capacity , @event.RegistrationInfo?.Fee, @event.RegistrationInfo?.PaymentType , @event.RegisteredUsers?.Select(u=>u.Id.Value).ToList() ?? [] , @event.RegisteredUsers?.Count ?? 0 );
+        return new EventDto(@event.Id.Value , @event.Title, @event.Description, @event.AdditionalInfoPairs, @event.OwnerId.Value , @event.ImageURl , @event.Location ,@event.Date , @event.CreatedAt,@event.Organizers, @event.Targets?.Roles,@event.Targets?.TargetGroups , @event.RegistrationInfo?.Deadline, @event.RegistrationInfo?.Capacity , @event.RegistrationInfo?.Fee, @event.RegistrationInfo?.PaymentType , @event.RegisteredUsers?.Select(u=>u.Id.Value).ToList() ?? [] , @event.RegisteredUsers?.Count ?? 0 );
     }
 }

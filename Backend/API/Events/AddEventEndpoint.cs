@@ -12,6 +12,7 @@ namespace API.Events;
 public record AddEventsRequest(string Title)
 {
     public string? Description { get; set; } = null;
+    public string? AdditionalInfoPairs { get; set; } = null;
     public string? TargetsRoles { get; set; } = null;
     public string? TargetGroups { get; set; } = null;
     public DateTime? Date { get; set; } = null;
