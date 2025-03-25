@@ -33,7 +33,7 @@ public class GetEventsEndpoint : CarterModule
 
         app.MapGet("/UserEvents/{id:int}", async (int id, IMediator mediator) =>
         {
-            var query = new GetUserEventsQuery(UserId.Of(id));
+            var query = new GetUsersEventsQuery(UserId.Of(id));
             var result = await mediator.Send(query);
             var response = result.Adapt<EventResponse>();
             return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));

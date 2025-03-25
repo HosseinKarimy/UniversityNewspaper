@@ -5,7 +5,7 @@ using Helper.HelperModels;
 
 namespace Application.Events.EventsHandlers.GetMyEvents;
 
-public record GetUserEventsQuery(UserId UserId) : IQuery<GetUserEventsResult>
+public record GetUsersEventsQuery(UserId UserId) : IQuery<GetUserEventsResult>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }

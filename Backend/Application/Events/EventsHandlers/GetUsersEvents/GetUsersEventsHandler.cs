@@ -4,9 +4,9 @@ using Helper.CQRS;
 
 namespace Application.Events.EventsHandlers.GetMyEvents;
 
-public class GetMyEventsHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandler<GetUserEventsQuery, GetUserEventsResult>
+public class GetUsersEventsHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandler<GetUsersEventsQuery, GetUserEventsResult>
 {
-    public async Task<GetUserEventsResult> Handle(GetUserEventsQuery request, CancellationToken cancellationToken)
+    public async Task<GetUserEventsResult> Handle(GetUsersEventsQuery request, CancellationToken cancellationToken)
     {
         var targetUser = request.UserId;
         var requestedUser = request.ContextCarrier.AuthenticatedUser.Id;
