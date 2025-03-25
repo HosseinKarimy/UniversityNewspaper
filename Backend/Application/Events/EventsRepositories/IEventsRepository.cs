@@ -6,6 +6,6 @@ namespace Application.Events.EventsRepositories
 {
     public interface IEventsRepository : IRepository<Event,EventId>
     {
-
+        public Task<List<Event>> GetByUserId(UserId userId,CancellationToken cancellationToken = default);
     }
 }

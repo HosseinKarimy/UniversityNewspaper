@@ -1,7 +1,9 @@
 ﻿using API.Events.DTO;
 using Application.Events.EventsHandlers.GetEvents;
+using Application.Events.EventsHandlers.GetMyEvents;
 using Carter;
 using Domain.Enums;
+using Domain.StronglyTypes;
 using Helper.JsuServerResponse;
 using Mapster;
 using MediatR;
@@ -26,6 +28,14 @@ public class GetEventsEndpoint : CarterModule
             var query = new GetEventQuery(Domain.StronglyTypes.EventId.Of(id));
             var result = await mediator.Send(query);
             var response = result.Event.Adapt<EventDetailsDto>();
+            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));
+        }).DisableAntiforgery();
+
+        app.MapGet("/UserEvents/{id:int}", async (int id, IMediator mediator) =>
+        {
+            var query = new GetUserEventsQuery(UserId.Of(id));
+            var result = await mediator.Send(query);
+            var response = result.Adapt<EventResponse>();
             return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));
         }).DisableAntiforgery();
     }
