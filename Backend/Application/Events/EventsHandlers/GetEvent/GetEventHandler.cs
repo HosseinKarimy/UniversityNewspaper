@@ -8,9 +8,11 @@ public class GetEventHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandler
 {
     public async Task<GetEventResult> Handle(GetEventQuery request, CancellationToken cancellationToken)
     {
-        var Event = await eventsUnitOfWork.EventsRepository.GetByIdAsync(request.EventId ,cancellationToken);
-        //todo if requester == owner , load regestered user
-        var eventsDto = EventDto.FromEvent(Event);
+        var Event = await eventsUnitOfWork.EventsRepository.GetByIdAsync(request.EventId, cancellationToken);
+        int registeredUserCount = Event.RegisteredUsers?.Count ?? 0;
+        if (request.ContextCarrier.AuthenticatedUser.Id != Event.OwnerId)
+            Event.RegisteredUsers = null;
+        var eventsDto = EventDto.FromEvent(Event, registeredUserCount);
         return new GetEventResult(eventsDto);
     }
 }

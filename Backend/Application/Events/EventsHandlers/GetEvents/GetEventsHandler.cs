@@ -9,7 +9,12 @@ public class GetEventsHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandle
     public async Task<GetEventsResult> Handle(GetEventsQuery request, CancellationToken cancellationToken)
     {
         var Events = await eventsUnitOfWork.EventsRepository.GetAllAsync(cancellationToken);
-        var eventsDto = Events.Select(e => EventDto.FromEvent(e)).ToList();
+        var eventsDto = Events.Select(e =>
+        {
+            int registeredUserCount = e.RegisteredUsers?.Count ?? 0;
+            e.RegisteredUsers = null;
+            return EventDto.FromEvent(e, registeredUserCount);
+        }).ToList();
         return new GetEventsResult(eventsDto);
     }
 }

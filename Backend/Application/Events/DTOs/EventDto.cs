@@ -23,7 +23,7 @@ public record EventDto(
     List<int> RegisteredUsers,
     int? RegisteredUsersCount)
 {
-    public static EventDto FromEvent(Event @event)
+    public static EventDto FromEvent(Event @event , int? registeredUsers = 0)
     {
         return new EventDto(
             EventId: @event.Id.Value,
@@ -43,6 +43,6 @@ public record EventDto(
             RegisterFee: @event.RegistrationInfo?.Fee,
             PaymentType: @event.RegistrationInfo?.PaymentType,
             RegisteredUsers: @event.RegisteredUsers?.Select(u => u.Id.Value).ToList() ?? [],
-            RegisteredUsersCount: @event.RegisteredUsers?.Count ?? 0);
+            RegisteredUsersCount: registeredUsers);
     }
 }
