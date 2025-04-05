@@ -2,7 +2,6 @@
 using Application.Events.EventsHandlers.GetEvents;
 using Application.Events.EventsHandlers.GetMyEvents;
 using Carter;
-using Domain.Enums;
 using Domain.StronglyTypes;
 using Helper.JsuServerResponse;
 using Mapster;

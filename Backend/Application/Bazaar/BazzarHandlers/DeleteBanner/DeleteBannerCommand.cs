@@ -1,6 +1,4 @@
-﻿using Application.Bazaar.DTO;
-using Domain.Enums;
-using Helper.CQRS;
+﻿using Helper.CQRS;
 using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.DeleteBanner;

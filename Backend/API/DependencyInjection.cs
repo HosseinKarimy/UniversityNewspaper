@@ -1,5 +1,4 @@
 ﻿using Carter;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 

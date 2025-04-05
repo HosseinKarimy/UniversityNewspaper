@@ -25,6 +25,24 @@ public record EventDto(
 {
     public static EventDto FromEvent(Event @event)
     {
-        return new EventDto(@event.Id.Value , @event.Title, @event.Description, @event.AdditionalInfoPairs, @event.OwnerId.Value , @event.ImageURl , @event.Location ,@event.Date , @event.CreatedAt,@event.Organizers, @event.Targets?.Roles,@event.Targets?.TargetGroups , @event.RegistrationInfo?.Deadline, @event.RegistrationInfo?.Capacity , @event.RegistrationInfo?.Fee, @event.RegistrationInfo?.PaymentType , @event.RegisteredUsers?.Select(u=>u.Id.Value).ToList() ?? [] , @event.RegisteredUsers?.Count ?? 0 );
+        return new EventDto(
+            EventId: @event.Id.Value,
+            Title: @event.Title,
+            Description: @event.Description,
+            AdditionalInfoPairs: @event.AdditionalInfoPairs,
+            OwnerId: @event.OwnerId.Value,
+            ImageUrl: @event.ImageURl,
+            Location: @event.Location,
+            Date: @event.Date,
+            CreatedAt: @event.CreatedAt,
+            Organizers: @event.Organizers,
+            TargetsRole: @event.Targets?.Roles,
+            TargetsGroups: @event.Targets?.TargetGroups,
+            RegisterDeadline: @event.RegistrationInfo?.Deadline,
+            RegisterCapacity: @event.RegistrationInfo?.Capacity,
+            RegisterFee: @event.RegistrationInfo?.Fee,
+            PaymentType: @event.RegistrationInfo?.PaymentType,
+            RegisteredUsers: @event.RegisteredUsers?.Select(u => u.Id.Value).ToList() ?? [],
+            RegisteredUsersCount: @event.RegisteredUsers?.Count ?? 0);
     }
 }
