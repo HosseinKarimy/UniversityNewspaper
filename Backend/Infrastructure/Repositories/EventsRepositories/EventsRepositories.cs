@@ -19,7 +19,7 @@ public class EventsRepositories(AppDbContext dbContext) : Repository<Event, Even
         return await dbContext.Events.Include(e => e.RegisteredUsers).FirstAsync(e => e.Id == id, cancellationToken);
     }
 
-    public async Task<List<Event>> GetByUserId(UserId userId, CancellationToken cancellationToken = default)
+    public async Task<List<Event>> GetEventsCreatedByUser(UserId userId, CancellationToken cancellationToken = default)
     {
         return await dbContext.Events.Where(e=>e.OwnerId == userId).Include(e => e.RegisteredUsers).ToListAsync(cancellationToken);
     }
