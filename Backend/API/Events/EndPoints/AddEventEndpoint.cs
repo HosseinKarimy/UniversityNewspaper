@@ -7,7 +7,7 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Events;
+namespace API.Events.EndPoints;
 
 public record AddEventsRequest(string Title)
 {
@@ -27,9 +27,13 @@ public record AddEventsRequest(string Title)
 
 public class AddEventEndpoint : CarterModule
 {
+    public AddEventEndpoint() : base("/Events")
+    {
+        
+    }
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/Events", async ([FromForm] AddEventsRequest request, IMediator mediator) =>
+        app.MapPost("/", async ([FromForm] AddEventsRequest request, IMediator mediator) =>
         {
             var addEventDto = request.Adapt<AddEventsDto>();
 

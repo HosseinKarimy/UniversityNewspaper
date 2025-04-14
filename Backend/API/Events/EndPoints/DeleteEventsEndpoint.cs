@@ -3,13 +3,17 @@ using Carter;
 using Helper.JsuServerResponse;
 using MediatR;
 
-namespace API.Events;
+namespace API.Events.EndPoints;
 
 public class DeleteEventsEndpoint : CarterModule
 {
-    public override void AddRoutes(IEndpointRouteBuilder app)
+    public DeleteEventsEndpoint() : base("/Events")
     {
-        app.MapDelete("/Events/{id:guid}", async (Guid id, IMediator mediator) =>
+        
+    }
+    public override void AddRoutes(IEndpointRouteBuilder app)
+    {        
+        app.MapDelete("/{id:guid}", async (Guid id, IMediator mediator) =>
         {
             var query = new DeleteEventCommand(Domain.StronglyTypes.EventId.Of(id));
             var result = await mediator.Send(query);
