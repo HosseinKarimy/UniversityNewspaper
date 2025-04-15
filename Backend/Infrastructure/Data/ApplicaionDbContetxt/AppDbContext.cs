@@ -15,6 +15,7 @@ public class AppDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Banner> Banners { get; set; }
     public DbSet<Event> Events { get; set; }
+    public DbSet<Announcement> Announcements { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
