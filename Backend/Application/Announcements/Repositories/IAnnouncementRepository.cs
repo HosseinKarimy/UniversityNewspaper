@@ -6,4 +6,5 @@ namespace Application.Announcements.Repositories;
 
 public interface IAnnouncementRepository : IRepository<Announcement,AnnouncementId>
 {
+    public Task<List<Announcement>> GetAnnouncementsCreatedByUser(UserId userId, CancellationToken cancellationToken = default);
 }
