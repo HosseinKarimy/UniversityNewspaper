@@ -1,19 +1,13 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Domain.Models;
+using Domain.StronglyTypes;
 using Infrastructure.Data.ApplicaionDbContetxt;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(AppDbContext dbContext) : Repository<User,UserId>(dbContext.Users)  , IUserRepository
 {
-    private readonly AppDbContext dbContext;
-
-    public UserRepository(AppDbContext dbContext)
-    {
-        this.dbContext = dbContext;
-    }
-
     public async Task<User> AddUserIfNotExistAsync(User user, CancellationToken cancellationToken = default)
     {
         var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Id == user.Id, cancellationToken);
