@@ -4,7 +4,7 @@ namespace Helper.Helpers;
 
 public static class FileHelper
 {
-    public static string? SaveFile(IFormFile file)
+    public static string? SaveFile(IFormFile? file)
     {
         if (file is null || file.Length == 0)
         {

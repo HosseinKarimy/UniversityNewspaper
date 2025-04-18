@@ -21,8 +21,18 @@ public class AuthenticationBehavior<TRequest>(IHttpContextAccessor httpContextAc
         //var response = ServerGetUserInfoResponse.FromJsonRequest(result) ?? throw new Exception("Cant Parse Server Response");
         //var user = await userRepository.AddUserIfNotExistAsync(CreateNewUser(response.User.Id), cancellationToken);
         //request.ContextCarrier.AuthenticatedUser = user;
-        request.ContextCarrier.AuthenticatedUser = new() { Id = UserId.Of(8800) };
+        //request.ContextCarrier.AuthenticatedUser = new() { Id = UserId.Of(8800) };
+        
+        await FakeJsuAuthAsync();
+
+        async Task FakeJsuAuthAsync()
+        {
+            var user = await userRepository.AddUserIfNotExistAsync(CreateNewUser(int.Parse(token)), cancellationToken);
+            request.ContextCarrier.AuthenticatedUser = new() { Id = user.Id };
+        }
     }
+
+    
 
     private static User CreateNewUser(int userId) => new() { Id = UserId.Of(userId) };
 }

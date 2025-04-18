@@ -1,6 +1,6 @@
 ﻿using API.Bazaar.EndPoints;
-using API.Events;
 using API.Events.DTO;
+using API.Events.EndPoints;
 using Application.Bazaar.DTO;
 using Application.Events.DTOs;
 using Domain.Enums;
