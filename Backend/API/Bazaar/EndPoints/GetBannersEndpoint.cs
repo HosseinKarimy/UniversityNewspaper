@@ -7,10 +7,7 @@ using MediatR;
 
 namespace API.Bazaar.EndPoints;
 
-
-//public record GetBannersRequest();
-public record GetBannersResponse(List<GoodBannerDto> GoodBanners, List<ServiceBannerDto> ServiceBanners);
-
+public record GetBannersResponse(List<BannerDto> Banners);
 
 public class GetBannersEndpoint : CarterModule
 {

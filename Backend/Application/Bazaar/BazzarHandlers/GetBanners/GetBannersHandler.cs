@@ -10,8 +10,7 @@ public class GetBannersHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IQueryHandl
     public async Task<GetBannersResult> Handle(GetBannersQuery request, CancellationToken cancellationToken)
     {
         var banners = await bazaarUnitOfWork.BannerRepository.GetAllAsync(cancellationToken);
-        var goods = banners.OfType<GoodBanner>().Select(banner => GoodBannerDto.FromBanner(banner)).ToList();
-        var services = banners.OfType<ServiceBanner>().Select(banner => ServiceBannerDto.FromBanner(banner)).ToList();
-        return new GetBannersResult(goods, services);
+        var bannersDto = banners.Select(b => BannerDto.FromBanner(b)).ToList();
+        return new GetBannersResult(bannersDto);
     }
 }
