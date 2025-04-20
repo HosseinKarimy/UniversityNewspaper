@@ -12,11 +12,7 @@ public class MapsterConfiguration
 {
     public static void MapsterConfigurations()
     {
-        TypeAdapterConfig<AddGoodBannerRequest, AddGoodBannerDto>
-          .NewConfig()
-          .Map(dest => dest.Image, src => FileHelper.SaveFile(src.Image));
-
-        TypeAdapterConfig<AddServiceBannerRequest, AddServiceBannerDto>
+        TypeAdapterConfig<AddBannerRequest, AddBannerDto>
           .NewConfig()
           .Map(dest => dest.Image, src => FileHelper.SaveFile(src.Image));
 

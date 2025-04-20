@@ -1,16 +1,9 @@
-﻿using Domain.Models;
+﻿namespace Application.Bazaar.DTO;
 
-namespace Application.Bazaar.DTO;
-
-public abstract record AddBannerDto(
+public record AddBannerDto(
     string Title,
-    string Description,
+    string? Description,
     Guid CategoryId,
-    string Image
+    string? Image,
+    decimal? Price
 );
-
-public record AddGoodBannerDto(string Title, string Description, Guid CategoryId, string Image,  decimal Price)
-    : AddBannerDto(Title, Description, CategoryId, Image);
-
-public record AddServiceBannerDto(string Title, string Description, Guid CategoryId, string Image)
-    : AddBannerDto(Title, Description, CategoryId, Image);
