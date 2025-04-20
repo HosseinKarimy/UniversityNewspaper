@@ -2,6 +2,7 @@
 using Application.Bazaar.BazzarRepositories;
 using Application.Bazaar.DTO;
 using Domain.Models;
+using Domain.StronglyTypes;
 using Helper.CQRS;
 
 namespace Application.Bazaar.BazzarHandlers.GetMyBanners;
