@@ -31,7 +31,7 @@ public record EventDto(
             Description: @event.Description,
             AdditionalInfoPairs: @event.AdditionalInfoPairs,
             OwnerId: @event.OwnerId.Value,
-            ImageUrl: @event.ImageURl,
+            ImageUrl: @event.ImageUrl,
             Location: @event.Location,
             Date: @event.Date,
             CreatedAt: @event.CreatedAt,

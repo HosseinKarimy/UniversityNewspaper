@@ -24,7 +24,7 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
                 Description = eventDto.Description,
                 AdditionalInfoPairs = eventDto.AdditionalInfoPairs,
                 Date = eventDto.Date,
-                ImageURl = eventDto.ImageURl,
+                ImageUrl = eventDto.ImageURl,
                 Location = eventDto.Location,                
                 Organizers = eventDto.Organizers,
                 OwnerId = UserId.Of(userId),
