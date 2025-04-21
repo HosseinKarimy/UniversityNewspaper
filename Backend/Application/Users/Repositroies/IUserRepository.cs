@@ -7,4 +7,5 @@ namespace Application.Users.Repositroies;
 public interface IUserRepository : IRepository<User, UserId>
 {
     public Task<User> AddUserIfNotExistAsync(User user, CancellationToken cancellationToken = default);
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

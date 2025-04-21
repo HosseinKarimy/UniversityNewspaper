@@ -4,6 +4,7 @@ using Domain.Models;
 using Domain.StronglyTypes;
 using Infrastructure.Data.ApplicaionDbContetxt;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Infrastructure.Repositories.UserRepositories;
 
@@ -22,5 +23,10 @@ public class UserRepository(AppDbContext dbContext) : Repository<User, UserId>(d
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return user;
+    }
+
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return await dbContext.SaveChangesAsync(cancellationToken);
     }
 }
