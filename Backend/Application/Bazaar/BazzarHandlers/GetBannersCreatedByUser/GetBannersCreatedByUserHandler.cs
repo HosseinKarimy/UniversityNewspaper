@@ -2,7 +2,6 @@
 using Application.Bazaar.BazzarRepositories;
 using Application.Bazaar.DTO;
 using Domain.Models;
-using Domain.StronglyTypes;
 using Helper.CQRS;
 
 namespace Application.Bazaar.BazzarHandlers.GetMyBanners;
@@ -12,7 +11,7 @@ public class GetBannersCreatedByUserHandler(IBazaarUnitOfWork bannerRepository) 
     public async Task<GetBannersResult> Handle(GetBannersCreatedByUserQuery request, CancellationToken cancellationToken)
     {
         Authorization();
-        List<Banner> banners = await bannerRepository.BannerRepository.GetBannersByUserID(request.UserId, cancellationToken);
+        List<Banner> banners = await bannerRepository.BannerRepository.GetBannersCreatedByUser(request.UserId, cancellationToken);
         var BannersDto = banners.Select(banner => BannerDto.FromBanner(banner)).ToList();
 
         return new GetBannersResult(BannersDto);

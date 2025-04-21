@@ -8,7 +8,7 @@ namespace Infrastructure.Repositories.BazaarRepositiories;
 
 public class BannerRepository(AppDbContext dbContext) : Repository<Banner, BannerId>(dbContext.Banners), IBannerRepository
 {
-    public async Task<List<Banner>> GetBannersByUserID(UserId userId, CancellationToken cancellationToken)
+    public async Task<List<Banner>> GetBannersCreatedByUser(UserId userId, CancellationToken cancellationToken)
     {
         return await dbContext.Banners.Where(banner => banner.OwnerId == userId).ToListAsync(cancellationToken);
     }
