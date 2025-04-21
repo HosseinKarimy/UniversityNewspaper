@@ -1,6 +1,4 @@
 ﻿using Application.Bazaar.BazzarRepositories;
-using Domain.Models;
-using Domain.StronglyTypes;
 using MediatR;
 
 namespace Application.Bazaar.BazzarHandlers.DeleteBanner;
@@ -10,19 +8,18 @@ public class DeleteBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IRequestH
     public async Task<DeleteBannerResult> Handle(DeleteBannerCommand request, CancellationToken cancellationToken)
     {
         var userId = request.ContextCarrier.AuthenticatedUser!.Id;
-        var banner = await bazaarUnitOfWork.BannerRepository.GetByIdAsync(BannerId.Of(request.BannerId), cancellationToken);
+        var banner = await bazaarUnitOfWork.BannerRepository.GetByIdAsync(request.BannerId, cancellationToken) ?? throw new Exception("Banner Not Found");
 
-        //todo: check if banner is null
-        AuthorizeRequest(banner, userId);
+        Authorization();
 
         bazaarUnitOfWork.BannerRepository.Delete(banner);
         await bazaarUnitOfWork.SaveChangesAsync(cancellationToken);
 
         return new DeleteBannerResult("success");
 
-        void AuthorizeRequest(Banner banner, UserId requestUserId)
+        void Authorization()
         {
-            if (banner.OwnerId != requestUserId)
+            if (banner.OwnerId != userId)
                 throw new Exception("Unauthorized");
         }
     }

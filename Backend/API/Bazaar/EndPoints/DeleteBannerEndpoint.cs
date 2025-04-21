@@ -1,5 +1,6 @@
 ﻿using Application.Bazaar.BazzarHandlers.DeleteBanner;
 using Carter;
+using Domain.StronglyTypes;
 using Helper.JsuServerResponse;
 using MediatR;
 
@@ -15,7 +16,7 @@ public class DeleteBannerEndpoint : CarterModule
         app.MapDelete("/banners/{id:guid}", async (Guid id, IMediator mediator) =>
         {
             //create Command
-            var command = new DeleteBannerCommand(id);
+            var command = new DeleteBannerCommand(BannerId.Of(id));
 
             //Send Command to Mediator Pipeline
             DeleteBannerResult result = await mediator.Send<DeleteBannerResult>(command);

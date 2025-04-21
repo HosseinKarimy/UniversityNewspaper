@@ -1,9 +1,10 @@
-﻿using Helper.CQRS;
+﻿using Domain.StronglyTypes;
+using Helper.CQRS;
 using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.DeleteBanner;
 
-public record DeleteBannerCommand(Guid BannerId) : ICommand<DeleteBannerResult>
+public record DeleteBannerCommand(BannerId BannerId) : ICommand<DeleteBannerResult>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }
