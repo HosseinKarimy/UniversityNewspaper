@@ -1,11 +1,12 @@
 ﻿using Application.Announcements.Repositories;
 using Application.Bazaar.BazzarRepositories;
 using Application.Events.EventsRepositories;
+using Application.Users.Repositroies;
 using Infrastructure.Data.ApplicaionDbContetxt;
-using Infrastructure.Repositories;
 using Infrastructure.Repositories.AnnouncementRepositories;
 using Infrastructure.Repositories.BazaarRepositiories;
 using Infrastructure.Repositories.EventsRepositories;
+using Infrastructure.Repositories.UserRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

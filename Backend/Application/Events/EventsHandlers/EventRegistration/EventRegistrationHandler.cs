@@ -1,7 +1,6 @@
-﻿using Application.Bazaar.BazzarRepositories;
-using Application.Events.EventsRepositories;
+﻿using Application.Events.EventsRepositories;
+using Application.Users.Repositroies;
 using Helper.CQRS;
-using System.Xml;
 
 namespace Application.Events.EventsHandlers.EventRegistration;
 
