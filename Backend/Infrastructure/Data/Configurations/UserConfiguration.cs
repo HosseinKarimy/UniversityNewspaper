@@ -15,11 +15,14 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(p => p.Id)
             .HasConversion(UserId => UserId.Value, dbUserId => UserId.Of(dbUserId)).ValueGeneratedNever();
 
+        builder.Property(p => p.CanAddBanner).HasDefaultValue(true);
+        builder.Property(p => p.CanAddEvent).HasDefaultValue(false);
+
         builder.HasData([
-            new User() {Id = UserId.Of(1234) , Role = UserRole.Teacher , Username = "981845112" , Group = TeachingGroup.GermanGroup  },
-            new User() {Id = UserId.Of(1235) , Role = UserRole.Teacher , Username = "981845123" , Group = TeachingGroup.ChemistryGroup },
-            new User() {Id = UserId.Of(1236) , Role = UserRole.Employee ,Username = "981832131" , Group = TeachingGroup.MathGroup },
-            new User() {Id = UserId.Of(8800) , Role = UserRole.Student , Username = "981845138" , Group = TeachingGroup.ComputerGruop }
+            new User() {Id = UserId.Of(1234) , Username = "981845112"  },
+            new User() {Id = UserId.Of(1235) , Username = "981845123"  },
+            new User() {Id = UserId.Of(1236)  ,Username = "981832131"  },
+            new User() {Id = UserId.Of(8800) , Username = "981845138"  }
             ]);
     }
 }
