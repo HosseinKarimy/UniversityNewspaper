@@ -1,18 +1,9 @@
 ﻿namespace Application.Bazaar.DTO;
 
-public abstract record UpdateBannerDto(
+public record UpdateBannerDto(
     string Title,
-    string Description,
+    string? Description,
     Guid CategoryId,
-    string Image,
-    List<Guid> TagIds
+    string? Image,
+    decimal? Price
 );
-
-public record UpdateGoodBannerDto(string Title, string Description, Guid CategoryId, string Image, List<Guid> TagIds, decimal Price)
-    : UpdateBannerDto(Title, Description, CategoryId, Image, TagIds);
-
-public record UpdateServiceBannerDto(string Title, string Description, Guid CategoryId, string Image, List<Guid> TagIds)
-    : UpdateBannerDto(Title, Description, CategoryId, Image, TagIds);
-
-public record UpdateEventBannerDto(string Title, string Description, Guid CategoryId, string Image, List<Guid> TagIds)
-    : UpdateBannerDto(Title, Description, CategoryId, Image, TagIds);

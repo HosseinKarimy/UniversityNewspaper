@@ -1,16 +1,17 @@
 ﻿using Application.Bazaar.DTO;
+using Domain.StronglyTypes;
 using FluentValidation;
 using Helper.CQRS;
 using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.UpdateBanner;
 
-public abstract record UpdateBannerCommand(Guid BannerId , UpdateBannerDto BannerDto) : ICommand<UpdateBannerResult>
+public record UpdateBannerCommand(BannerId BannerId , UpdateBannerDto BannerDto) : ICommand<UpdateBannerResult>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }
 
-public abstract class UpdateBannerValidaion : AbstractValidator<UpdateBannerCommand>
+public class UpdateBannerValidaion : AbstractValidator<UpdateBannerCommand>
 {
     public UpdateBannerValidaion()
     {
@@ -20,25 +21,4 @@ public abstract class UpdateBannerValidaion : AbstractValidator<UpdateBannerComm
 }
 
 public record UpdateBannerResult(bool IsSuccess);
-
-
-
-
-public record UpdateGoodBannerCommand(Guid BannerId, UpdateGoodBannerDto Banner) : UpdateBannerCommand(BannerId , Banner);
-public class UpdateGoodBannerValidation : AbstractValidator<UpdateGoodBannerDto>
-{
-    public UpdateGoodBannerValidation() : base()
-    {
-        RuleFor(p=>p.Price).GreaterThanOrEqualTo(0);
-    }
-}
-
-public record UpdateServiceBannerCommand(Guid BannerId, UpdateServiceBannerDto Banner) : UpdateBannerCommand(BannerId, Banner);
-public class UpdateServiceBannerValidation : AbstractValidator<UpdateServiceBannerDto>
-{
-    public UpdateServiceBannerValidation() : base()
-    {
-
-    }
-}
 
