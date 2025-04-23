@@ -17,10 +17,7 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
 
         builder.Property(p => p.OwnerId).HasConversion(OwnerId => OwnerId.Value, dbUserId => UserId.Of(dbUserId));
 
-        builder.HasMany<User>(e=>e.RegisteredUsers).WithMany();
-
         builder.OwnsOne(p => p.RegistrationInfo);
-        builder.OwnsOne(p => p.Targets);
 
         builder.UseTphMappingStrategy();
 
