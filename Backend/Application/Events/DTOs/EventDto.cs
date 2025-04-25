@@ -8,19 +8,16 @@ public record EventDto(
     string? Title,
     string? Description,
     string? AdditionalInfoPairs,
-    int OwnerId,
+    EventStatus EventStatus,
+int OwnerId,
     string? ImageUrl,
     string? Location,
     DateTime? Date,
     DateTime CreatedAt,
     List<Department>? Organizers,
-    List<UserRole>? TargetsRole,
-    List<TeachingGroup>? TargetsGroups,
     DateOnly? RegisterDeadline,
     int? RegisterCapacity,
     decimal? RegisterFee,
-    PaymentType? PaymentType,
-    List<int> RegisteredUsers,
     int? RegisteredUsersCount)
 {
     public static EventDto FromEvent(Event @event , int? registeredUsers = 0)
@@ -30,19 +27,16 @@ public record EventDto(
             Title: @event.Title,
             Description: @event.Description,
             AdditionalInfoPairs: @event.AdditionalInfoPairs,
+            EventStatus: @event.EventStatus,
             OwnerId: @event.OwnerId.Value,
             ImageUrl: @event.ImageUrl,
             Location: @event.Location,
             Date: @event.Date,
             CreatedAt: @event.CreatedAt,
             Organizers: @event.Organizers,
-            TargetsRole: @event.Targets?.Roles,
-            TargetsGroups: @event.Targets?.TargetGroups,
             RegisterDeadline: @event.RegistrationInfo?.Deadline,
             RegisterCapacity: @event.RegistrationInfo?.Capacity,
             RegisterFee: @event.RegistrationInfo?.Fee,
-            PaymentType: @event.RegistrationInfo?.PaymentType,
-            RegisteredUsers: @event.RegisteredUsers?.Select(u => u.Id.Value).ToList() ?? [],
             RegisteredUsersCount: registeredUsers);
     }
 }

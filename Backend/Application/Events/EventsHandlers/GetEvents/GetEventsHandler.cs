@@ -11,8 +11,7 @@ public class GetEventsHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandle
         var Events = await eventsUnitOfWork.EventsRepository.GetAllAsync(cancellationToken);
         var eventsDto = Events.Select(e =>
         {
-            int registeredUserCount = e.RegisteredUsers?.Count ?? 0;
-            e.RegisteredUsers = null;
+            int registeredUserCount = e.Registrations!.Where(er=>er.Status == Domain.Enums.RegistrationStatus.Approved).Count();
             return EventDto.FromEvent(e, registeredUserCount);
         }).ToList();
         return new GetEventsResult(eventsDto);
