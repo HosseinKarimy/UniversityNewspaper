@@ -10,10 +10,14 @@ public class GetEventsCreatedByUserHandler(IEventsUnitOfWork eventsUnitOfWork) :
     public async Task<GetEventsResult> Handle(GetEventsCreatedByUserQuery request, CancellationToken cancellationToken)
     {
         var targetUser = request.UserId;
-        var requestedUser = request.ContextCarrier.AuthenticatedUser.Id;
+        var requestedUser = request.ContextCarrier.AuthenticatedUser!.Id;
         Authorization();
         var Events = await eventsUnitOfWork.EventsRepository.GetEventsCreatedByUser(targetUser, cancellationToken);
-        var eventsDto = Events.Select(e => EventDto.FromEvent(e)).ToList();
+        var eventsDto = Events.Select(e =>
+        {
+            int registeredUserCount = e.Registrations!.Where(er => er.Status == Domain.Enums.RegistrationStatus.Approved).Count();
+            return EventDto.FromEvent(e, registeredUserCount);
+        }).ToList();
         return new GetEventsResult(eventsDto);
 
         void Authorization()

@@ -20,8 +20,7 @@ public class EventsCreatedByUser : CarterModule
         {
             var query = new GetEventsCreatedByUserQuery(UserId.Of(userId));
             var result = await mediator.Send(query);
-            var response = result.Adapt<EventResponse>();
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", result));
         }).DisableAntiforgery();
     }
 }
