@@ -10,15 +10,10 @@ namespace Application.Events.DTOs
         string ImageURl,
         string Location,
         List<Department> Organizers,
-        TargetUsersDto? Targets,
         RegistrationInfoDto? RegistrationInfo);
-
-    public record TargetUsersDto(List<UserRole>? TargetsRoles,
-        List<TeachingGroup>? TargetGroups);
 
     public record RegistrationInfoDto(
         DateOnly? Deadline,
         int? Capacity,
-        decimal? Fee,
-        PaymentType? PaymentType);
+        decimal? Fee);
 }

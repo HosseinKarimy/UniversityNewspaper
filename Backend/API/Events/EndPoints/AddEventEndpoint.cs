@@ -1,7 +1,6 @@
 ﻿using Application.Events.DTOs;
 using Application.Events.EventsHandlers.AddEvent;
 using Carter;
-using Domain.Enums;
 using Helper.JsuServerResponse;
 using Mapster;
 using MediatR;
@@ -13,8 +12,6 @@ public record AddEventsRequest(string Title)
 {
     public string? Description { get; set; } = null;
     public string? AdditionalInfoPairs { get; set; } = null;
-    public string? TargetsRoles { get; set; } = null;
-    public string? TargetGroups { get; set; } = null;
     public DateTime? Date { get; set; } = null;
     public IFormFile? Image { get; set; } = null;
     public string? Location { get; set; } = null;
@@ -22,7 +19,6 @@ public record AddEventsRequest(string Title)
     public DateOnly? RegisterDeadline { get; set; } = null;
     public int? RegisterCapacity { get; set; } = null;
     public decimal? RegisterFee { get; set; } = null;
-    public PaymentType? PaymentType { get; set; } = null;
 }
 
 public class AddEventEndpoint : CarterModule

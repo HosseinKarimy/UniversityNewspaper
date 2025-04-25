@@ -33,14 +33,8 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
                 {
                     Deadline = eventDto.RegistrationInfo?.Deadline,
                     Capacity = eventDto.RegistrationInfo?.Capacity,
-                    Fee = eventDto.RegistrationInfo?.Fee,
-                    PaymentType = eventDto.RegistrationInfo?.PaymentType                                        
+                    Fee = eventDto.RegistrationInfo?.Fee                                    
                 },
-                Targets = new TargetUsers()
-                {
-                    Roles = eventDto.Targets?.TargetsRoles,
-                    TargetGroups = eventDto.Targets?.TargetGroups
-                }
             };
         }
     }
