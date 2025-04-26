@@ -1,8 +1,9 @@
 ﻿using Domain.Enums;
+using Domain.Models;
 
 namespace Application.Events.DTOs
 {
-    public record AddEventsDto(
+    public record AddOrUpdateEventDto(
         string Title,
         string? Description,
         string? AdditionalInfoPairs,
@@ -10,10 +11,8 @@ namespace Application.Events.DTOs
         string ImageURl,
         string Location,
         List<Department> Organizers,
-        RegistrationInfoDto? RegistrationInfo);
-
-    public record RegistrationInfoDto(
-        DateOnly? Deadline,
+        DateTime? Deadline,
         int? Capacity,
-        decimal? Fee);
+        decimal? Fee,
+        EventStatus Status);
 }

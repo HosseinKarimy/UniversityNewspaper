@@ -10,12 +10,12 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
 {
     public async Task<AddEventResult> Handle(AddEventCommand request, CancellationToken cancellationToken)
     {
-        var newEvent = CreateNewEvent(request.EventDto, request.ContextCarrier.AuthenticatedUser.Id.Value);
+        var newEvent = CreateNewEvent(request.EventDto, request.ContextCarrier.AuthenticatedUser!.Id.Value);
         var createEvent = await eventsUnitOfWork.EventsRepository.AddAsync(newEvent, cancellationToken);
         await eventsUnitOfWork.SaveChangesAsync(cancellationToken);
         return new AddEventResult(createEvent.Id.Value);
 
-        static Event CreateNewEvent(AddEventsDto eventDto, int userId)
+        static Event CreateNewEvent(AddOrUpdateEventDto eventDto, int userId)
         {
             return new Event()
             {
@@ -25,7 +25,7 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
                 AdditionalInfoPairs = eventDto.AdditionalInfoPairs,
                 Date = eventDto.Date,
                 ImageUrl = eventDto.ImageURl,
-                Location = eventDto.Location,                
+                Location = eventDto.Location,
                 Organizers = eventDto.Organizers,
                 OwnerId = UserId.Of(userId),
                 CreatedAt = DateTime.Now,
