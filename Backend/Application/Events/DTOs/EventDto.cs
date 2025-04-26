@@ -9,13 +9,13 @@ public record EventDto(
     string? Description,
     string? AdditionalInfoPairs,
     EventStatus EventStatus,
-int OwnerId,
+    int OwnerId,
     string? ImageUrl,
     string? Location,
     DateTime? Date,
     DateTime CreatedAt,
     List<Department>? Organizers,
-    DateOnly? RegisterDeadline,
+    DateTime? RegisterDeadline,
     int? RegisterCapacity,
     decimal? RegisterFee,
     int? RegisteredUsersCount)
@@ -34,9 +34,9 @@ int OwnerId,
             Date: @event.Date,
             CreatedAt: @event.CreatedAt,
             Organizers: @event.Organizers,
-            RegisterDeadline: @event.RegistrationInfo?.Deadline,
-            RegisterCapacity: @event.RegistrationInfo?.Capacity,
-            RegisterFee: @event.RegistrationInfo?.Fee,
+            RegisterDeadline: @event.Deadline,
+            RegisterCapacity: @event.Capacity,
+            RegisterFee: @event.Fee,
             RegisteredUsersCount: registeredUsers);
     }
 }

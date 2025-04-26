@@ -29,12 +29,10 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
                 Organizers = eventDto.Organizers,
                 OwnerId = UserId.Of(userId),
                 CreatedAt = DateTime.Now,
-                RegistrationInfo = new RegistrationInfo()
-                {
-                    Deadline = eventDto.RegistrationInfo?.Deadline,
-                    Capacity = eventDto.RegistrationInfo?.Capacity,
-                    Fee = eventDto.RegistrationInfo?.Fee                                    
-                },
+                Deadline = eventDto.Deadline,
+                Capacity = eventDto.Capacity,
+                Fee = eventDto.Fee,
+                EventStatus = eventDto.Status
             };
         }
     }
