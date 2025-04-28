@@ -25,7 +25,7 @@ public class UpdateBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHandler<
         }
     }
 
-    private static void UpdateBannerObject(Banner ExistingBanner, UpdateBannerDto UpdatedBanner)
+    private static void UpdateBannerObject(Banner ExistingBanner, AddOrUpdateBannerDto UpdatedBanner)
     {
         ExistingBanner.CategoryId = CategoryId.Of(UpdatedBanner.CategoryId);
         ExistingBanner.Description = UpdatedBanner.Description;

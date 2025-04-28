@@ -6,7 +6,7 @@ using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.UpdateBanner;
 
-public record UpdateBannerCommand(BannerId BannerId , UpdateBannerDto BannerDto) : ICommand<UpdateBannerResult>
+public record UpdateBannerCommand(BannerId BannerId , AddOrUpdateBannerDto BannerDto) : ICommand<UpdateBannerResult>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }

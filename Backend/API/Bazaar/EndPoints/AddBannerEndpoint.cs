@@ -9,18 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Bazaar.EndPoints;
 
-public record AddBannerRequest(string Title, string Description, Guid CategoryId, decimal Price)
+public record AddOrUpdateBannerRequest(string Title, string Description, Guid CategoryId)
 {
     public IFormFile? Image { get; init; } = null;
+    public decimal? Price { get; init; } = null;
 }
 
 public class AddBannerEndpoint : CarterModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/Banners", async ([FromForm] AddBannerRequest request, IMediator mediator) =>
+        app.MapPost("/Banners", async ([FromForm] AddOrUpdateBannerRequest request, IMediator mediator) =>
         {
-            var bannerDto = request.Adapt<AddBannerDto>();
+            var bannerDto = request.Adapt<AddOrUpdateBannerDto>();
 
             var command = new AddBannerCommand(bannerDto);
 

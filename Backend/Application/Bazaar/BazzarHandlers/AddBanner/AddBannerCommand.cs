@@ -5,7 +5,7 @@ using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.AddBanner;
 
-public record AddBannerCommand(AddBannerDto BannerDto) : ICommand<AddBannerResult>
+public record AddBannerCommand(AddOrUpdateBannerDto BannerDto) : ICommand<AddBannerResult>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }

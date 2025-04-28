@@ -1,6 +1,6 @@
 ﻿namespace Application.Bazaar.DTO;
 
-public record UpdateBannerDto(
+public record AddOrUpdateBannerDto(
     string Title,
     string? Description,
     Guid CategoryId,

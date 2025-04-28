@@ -15,7 +15,7 @@ public class AddBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : ICommandHand
         return new AddBannerResult(newbanner.Id.Value);
     }
 
-    private static Banner CreateNewBanner(AddBannerDto BannerDto, int userId) => new()
+    private static Banner CreateNewBanner(AddOrUpdateBannerDto BannerDto, int userId) => new()
     {
         Id = BannerId.Of(Guid.NewGuid()),
         CategoryId = CategoryId.Of(BannerDto.CategoryId),
