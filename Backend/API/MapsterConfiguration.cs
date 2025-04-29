@@ -11,7 +11,7 @@ public class MapsterConfiguration
 {
     public static void MapsterConfigurations()
     {
-        TypeAdapterConfig<AddBannerRequest, AddBannerDto>
+        TypeAdapterConfig<AddOrUpdateBannerRequest, AddOrUpdateBannerDto>
           .NewConfig()
           .Map(dest => dest.Image, src => FileHelper.SaveFile(src.Image));
 
@@ -19,15 +19,14 @@ public class MapsterConfiguration
           .NewConfig()
           .Map(dest => dest.Image, src => string.IsNullOrWhiteSpace(src.Image) ? null : "https://10.0.2.2:7159" + src.Image);
 
-        TypeAdapterConfig<AddEventsRequest, AddEventsDto>
+        TypeAdapterConfig<AddOrUpdateEventRequest, AddOrUpdateEventDto>
           .NewConfig()
           .Map(dest => dest.Organizers, src => ParsingToEnum<Department>(src.Organizers))
-          .Map(dest => dest.RegistrationInfo, src => new RegistrationInfoDto(src.RegisterDeadline , src.RegisterCapacity , src.RegisterFee))
           .Map(dest => dest.ImageURl, src => FileHelper.SaveFile(src.Image));
 
-        //TypeAdapterConfig<EventDto, Event>
-        //  .NewConfig()
-        //  .Map(dest => dest.ImageUrl, src => string.IsNullOrWhiteSpace(src.ImageUrl) ? null : "https://10.0.2.2:7159" + src.ImageUrl);
+        TypeAdapterConfig<EventDto, EventDto>
+          .NewConfig()
+          .Map(dest => dest.ImageUrl, src => string.IsNullOrWhiteSpace(src.ImageUrl) ? null : "https://10.0.2.2:7159" + src.ImageUrl);
 
     }
 

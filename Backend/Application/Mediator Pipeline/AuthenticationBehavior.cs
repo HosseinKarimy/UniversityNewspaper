@@ -1,9 +1,10 @@
-﻿using Application.Bazaar.BazzarRepositories;
+﻿using Application.Users.Repositroies;
 using Domain.Models;
 using Domain.StronglyTypes;
 using Helper.CQRS;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Application.Mediator_Pipeline;
 
@@ -28,7 +29,7 @@ public class AuthenticationBehavior<TRequest>(IHttpContextAccessor httpContextAc
         async Task FakeJsuAuthAsync()
         {
             var user = await userRepository.AddUserIfNotExistAsync(CreateNewUser(int.Parse(token)), cancellationToken);
-            request.ContextCarrier.AuthenticatedUser = new() { Id = user.Id };
+            request.ContextCarrier.AuthenticatedUser = user;
         }
     }
 
