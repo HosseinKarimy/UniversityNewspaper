@@ -6,5 +6,5 @@ namespace Application.Events.EventsRepositories;
 
 public interface IEventRegistrationRepository : IRepository<EventRegistration , (EventId, UserId)>
 {
-
+    public Task<List<EventRegistration>> GetRegistrationsOfEvent(EventId eventId, CancellationToken cancellationToken = default);
 }
