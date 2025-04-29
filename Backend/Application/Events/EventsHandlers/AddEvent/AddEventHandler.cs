@@ -4,12 +4,15 @@ using Domain.Models;
 using Domain.StronglyTypes;
 using Helper.CQRS;
 
+
 namespace Application.Events.EventsHandlers.AddEvent;
 
 public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandler<AddEventCommand, AddEventResult>
 {
     public async Task<AddEventResult> Handle(AddEventCommand request, CancellationToken cancellationToken)
     {
+        Authorization();
+
         var newEvent = CreateNewEvent(request.EventDto, request.ContextCarrier.AuthenticatedUser!.Id.Value);
         var createEvent = await eventsUnitOfWork.EventsRepository.AddAsync(newEvent, cancellationToken);
         await eventsUnitOfWork.SaveChangesAsync(cancellationToken);
@@ -35,5 +38,14 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
                 EventStatus = eventDto.Status
             };
         }
+
+        void Authorization()
+        {
+            if (request.ContextCarrier.AuthenticatedUser!.CanAddEvent is false)
+            {
+                throw new Exception("Access Denied");
+            }
+        }
     }
+
 }
