@@ -4,7 +4,7 @@ using Helper.HelperModels;
 
 namespace Application.Events.EventsHandlers.GetEvents;
 
-public record GetEventsQuery : IQuery<GetEventsResult>
+public record GetEventsQuery(EventSearchFilter SearchFilter) : IQuery<PaginatedResult<EventDto>>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }

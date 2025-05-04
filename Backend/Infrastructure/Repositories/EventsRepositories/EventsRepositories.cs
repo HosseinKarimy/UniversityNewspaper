@@ -1,4 +1,5 @@
-﻿using Application.Events.EventsRepositories;
+﻿using Application.Events.DTOs;
+using Application.Events.EventsRepositories;
 using Domain.Models;
 using Domain.StronglyTypes;
 using Infrastructure.Data.ApplicaionDbContetxt;
@@ -27,5 +28,34 @@ public class EventsRepositories(AppDbContext dbContext) : Repository<Event, Even
     public async Task<List<Event>> GetEventsRegisteredByUser(UserId userId, CancellationToken cancellationToken = default)
     {
          return await dbContext.Events.Where(e=>e.Registrations.Any(u=>u.UserId == userId)).Include(e => e.Registrations).ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<Event>> GetFilteredEvents(EventSearchFilter Filters, CancellationToken cancellationToken = default)
+    {
+        var dbQuery = dbContext.Events
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(Filters.FilteredTitle))
+            dbQuery = dbQuery.Where(e => e.Title.Contains(Filters.FilteredTitle));
+
+        //if (Filters.EventStatus.HasValue)
+        //    dbQuery = dbQuery.Where(e => e.EventStatus == Filters.EventStatus.Value);
+
+        //if (Filters.FromDate.HasValue)
+        //    dbQuery = dbQuery.Where(e => e.Date >= Filters.FromDate.Value);
+
+        //if (Filters.ToDate.HasValue)
+        //    dbQuery = dbQuery.Where(e => e.Date <= Filters.ToDate.Value);
+
+        //if (Filters.DepartmentId.HasValue)
+        //    dbQuery = dbQuery.Where(e => e.Organizers.Any(o => o.Id == Filters.DepartmentId.Value));
+
+        //var totalCount = await dbQuery.CountAsync(cancellationToken);
+
+        return await dbQuery
+            .OrderByDescending(e => e.Date)
+            .Skip((Filters.Page - 1) * Filters.PageSize)
+            .Take(Filters.PageSize)           
+            .ToListAsync(cancellationToken);
     }
 }
