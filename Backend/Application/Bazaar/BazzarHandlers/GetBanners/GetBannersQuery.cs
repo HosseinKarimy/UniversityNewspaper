@@ -4,7 +4,7 @@ using Helper.HelperModels;
 
 namespace Application.Bazaar.BazzarHandlers.GetBanners;
 
-public record GetBannersQuery : IQuery<GetBannersResult>
+public record GetBannersQuery(BannerSearchFilter Filters) : IQuery<PaginatedResult<BannerDto>>
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }
