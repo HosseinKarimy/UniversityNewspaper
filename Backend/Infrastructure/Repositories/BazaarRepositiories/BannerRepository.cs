@@ -24,6 +24,9 @@ public class BannerRepository(AppDbContext dbContext) : Repository<Banner, Banne
         if (Filters.CategoryId.HasValue)
             query = query.Where(e => e.CategoryId == CategoryId.Of(Filters.CategoryId.Value));
 
+        if (Filters.OwnerId.HasValue)
+            query = query.Where(e => e.OwnerId == UserId.Of(Filters.OwnerId.Value));
+
         return await query
             .OrderByDescending(e => e.CreatedAt)
             .Skip((Filters.Page - 1) * Filters.PageSize)

@@ -6,4 +6,5 @@ public class BannerSearchFilter
     public int PageSize { get; set; } = 10;
     public string? Title { get; set; }
     public Guid? CategoryId { get; set; }
+    public int? OwnerId { get; set; }
 }
