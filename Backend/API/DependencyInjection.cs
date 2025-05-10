@@ -7,10 +7,10 @@ namespace API;
 public static class DependencyInjection
 {
     public static IServiceCollection AddApiLayerServices(this IServiceCollection services)
-    {
-        
+    {        
         services.AddCarter();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));        
+        services.AddExceptionHandler<GlobalExceptionHandler>();
         return services;
     }
 
@@ -23,6 +23,8 @@ public static class DependencyInjection
             FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")),
             RequestPath = "/uploads"
         });
+
+        app.UseExceptionHandler(opt => { });
 
         MapsterConfiguration.MapsterConfigurations();
         return app;
