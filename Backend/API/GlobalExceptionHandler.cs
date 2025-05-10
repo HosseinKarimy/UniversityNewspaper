@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Helper.JsuServerResponse;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace API;
 
@@ -8,7 +9,7 @@ public class GlobalExceptionHandler : IExceptionHandler
     {
         // Fallback
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-        await httpContext.Response.WriteAsJsonAsync(new { error = "An unexpected error occurred." }, cancellationToken: cancellationToken);
+        await httpContext.Response.WriteAsJsonAsync(JsuContractTemplate.GetContractTemplate("Failed" , message: exception.Message), cancellationToken: cancellationToken);
         return true;
     }
 }
