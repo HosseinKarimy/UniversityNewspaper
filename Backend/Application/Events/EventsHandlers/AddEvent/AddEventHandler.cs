@@ -1,5 +1,6 @@
 ﻿using Application.Events.DTOs;
 using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Domain.Models;
 using Domain.StronglyTypes;
 using Helper.CQRS;
@@ -43,7 +44,7 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
         {
             if (request.ContextCarrier.AuthenticatedUser!.CanAddEvent is false)
             {
-                throw new Exception("Access Denied");
+                throw new AccessDeniedExcepion();
             }
         }
     }

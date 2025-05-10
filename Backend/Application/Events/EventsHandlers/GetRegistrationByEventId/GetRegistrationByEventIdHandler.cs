@@ -1,5 +1,6 @@
 ﻿using Application.Events.DTOs;
 using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Helper.CQRS;
 
 namespace Application.Events.EventsHandlers.GetRegistrationByEventId;
@@ -12,7 +13,7 @@ public class GetRegistrationByEventIdHandler(IEventsUnitOfWork eventsUnitOfWork)
         var actorId = request.ContextCarrier.AuthenticatedUser!.Id;
         var targetEvent = await eventsUnitOfWork.EventsRepository
             .GetByIdAsync(eventId, cancellationToken)
-            ?? throw new Exception("Event not found");
+            ?? throw new NotFoundException("Event not found");
 
         if (targetEvent.OwnerId != actorId)
             throw new UnauthorizedAccessException("Only the event owner can view registrations");

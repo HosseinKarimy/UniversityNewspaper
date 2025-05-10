@@ -1,4 +1,5 @@
 ﻿using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Domain.Enums;
 using Domain.Models;
 using Helper.CQRS;
@@ -18,7 +19,7 @@ public class EventRegistrationHandler(IEventsUnitOfWork eventsUnitOfWork)
 
         var targetEvent = await eventsUnitOfWork.EventsRepository
             .GetByIdAsync(eventId, cancellationToken)
-            ?? throw new Exception("Event not found");
+            ?? throw new NotFoundException();
 
         var registration = await eventsUnitOfWork.EventRegisterationRepository
             .GetByIdAsync((eventId, userId), cancellationToken);
@@ -26,13 +27,13 @@ public class EventRegistrationHandler(IEventsUnitOfWork eventsUnitOfWork)
         if (registration is null)
         {
             if (targetEvent.EventStatus != EventStatus.RegistrationOpen)
-                throw new Exception("Registration is closed");
+                throw new BadRequestException("Registration is closed");
 
             if (actorId != userId)
-                throw new UnauthorizedAccessException("Only the user can register themselves");
+                throw new AccessDeniedExcepion("Only the user can register themselves");
 
             if (status != RegistrationStatus.Pending)
-                throw new Exception("Invalid registration status for new request");
+                throw new BadRequestException("Invalid registration status for new request");
 
             registration = new EventRegistration
             {

@@ -1,5 +1,6 @@
 ﻿using Application.Events.DTOs;
 using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Helper.CQRS;
 
 namespace Application.Events.EventsHandlers.EventRegistered;
@@ -25,7 +26,7 @@ public class EventRegisteredByUserHandler(IEventsUnitOfWork eventsUnitOfWork) : 
         {
             if (targetUser != requestedUser)
             {
-                throw new Exception("UnAuthorized");
+                throw new UnauthorizedExeption();
             }
         }
     }

@@ -8,5 +8,3 @@ public record GetEventsQuery(EventSearchFilter SearchFilter) : IQuery<PaginatedR
 {
     public ImportantHttpContextCarrier ContextCarrier { get; set; } = new();
 }
-
-public record GetEventsResult(List<EventDto> Events);

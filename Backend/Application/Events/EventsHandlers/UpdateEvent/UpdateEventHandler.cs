@@ -1,4 +1,5 @@
 ﻿using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Helper.CQRS;
 using MediatR;
 
@@ -13,7 +14,7 @@ public class UpdateEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHa
         var userId = request.ContextCarrier.AuthenticatedUser!.Id;
 
         if (userId != targetEvent.OwnerId)
-            throw new Exception("UnAuthorized");
+            throw new UnauthorizedExeption();
 
         UpdateEventObject();
         await eventsUnitOfWork.SaveChangesAsync(cancellationToken);

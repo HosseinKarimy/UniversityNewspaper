@@ -1,13 +1,13 @@
 ﻿using Application.Events.DTOs;
-using Application.Events.EventsHandlers.GetEvents;
 using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Helper.CQRS;
 
 namespace Application.Events.EventsHandlers.GetMyEvents;
 
-public class GetEventsCreatedByUserHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandler<GetEventsCreatedByUserQuery, GetEventsResult>
+public class GetEventsCreatedByUserHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandler<GetEventsCreatedByUserQuery, List<EventDto>>
 {
-    public async Task<GetEventsResult> Handle(GetEventsCreatedByUserQuery request, CancellationToken cancellationToken)
+    public async Task<List<EventDto>> Handle(GetEventsCreatedByUserQuery request, CancellationToken cancellationToken)
     {
         var targetUser = request.UserId;
         var requestedUser = request.ContextCarrier.AuthenticatedUser!.Id;
@@ -18,13 +18,13 @@ public class GetEventsCreatedByUserHandler(IEventsUnitOfWork eventsUnitOfWork) :
             int registeredUserCount = e.Registrations!.Where(er => er.Status == Domain.Enums.RegistrationStatus.Approved).Count();
             return EventDto.FromEvent(e, registeredUserCount);
         }).ToList();
-        return new GetEventsResult(eventsDto);
+        return eventsDto;
 
         void Authorization()
         {
             if (targetUser != requestedUser)
             {
-                throw new Exception("UnAuthorized");
+                throw new UnauthorizedExeption();
             }
         }
     }

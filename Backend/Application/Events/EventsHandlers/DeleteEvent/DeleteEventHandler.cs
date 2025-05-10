@@ -1,6 +1,6 @@
 ﻿using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Helper.CQRS;
-using System.Net;
 
 namespace Application.Events.EventsHandlers.DeleteEvent;
 
@@ -8,7 +8,7 @@ public class DeleteEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHa
 {
     public async Task<DeleteEventResult> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
     {
-        var _event = await eventsUnitOfWork.EventsRepository.GetByIdAsync(request.EventId, cancellationToken);
+        var _event = await eventsUnitOfWork.EventsRepository.GetByIdAsync(request.EventId, cancellationToken) ?? throw new NotFoundException();
         Authorization();
         eventsUnitOfWork.EventsRepository.Delete(_event!);
         await eventsUnitOfWork.SaveChangesAsync(cancellationToken);
@@ -16,10 +16,8 @@ public class DeleteEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHa
 
         void Authorization()
         {
-            if(_event is null)
-                throw new Exception("Event not found");
-            else if(_event.OwnerId != request.ContextCarrier.AuthenticatedUser!.Id)
-                throw new Exception("Unauthorized");
+            if(_event.OwnerId != request.ContextCarrier.AuthenticatedUser!.Id)
+                throw new UnauthorizedExeption();
         }
     }
 
