@@ -1,9 +1,7 @@
 ﻿using Application.Events.EventsHandlers.EventRegistered;
 using Carter;
-using Domain.Models;
 using Domain.StronglyTypes;
 using Helper.JsuServerResponse;
-using Mapster;
 using MediatR;
 
 namespace API.Events.EndPoints;
@@ -22,7 +20,7 @@ public class EventRegisteredByUserEndpoint : CarterModule
         app.MapGet("/Registered/{userId:int}", async (int userId, IMediator mediator) =>
         {
             //create Command
-            var command = new EventRegisteredQuery(UserId.Of(userId));
+            var command = new EventRegisteredByUserQuery(UserId.Of(userId));
 
             //Send Command to Mediator Pipeline
             var result = await mediator.Send(command);
