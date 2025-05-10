@@ -35,11 +35,14 @@ public class EventsRepositories(AppDbContext dbContext) : Repository<Event, Even
         var dbQuery = dbContext.Events
             .AsQueryable();
 
-        if (!string.IsNullOrWhiteSpace(Filters.FilteredTitle))
-            dbQuery = dbQuery.Where(e => e.Title.Contains(Filters.FilteredTitle));
+        if (!string.IsNullOrWhiteSpace(Filters.Title))
+            dbQuery = dbQuery.Where(e => e.Title.Contains(Filters.Title));
 
-        //if (Filters.EventStatus.HasValue)
-        //    dbQuery = dbQuery.Where(e => e.EventStatus == Filters.EventStatus.Value);
+        if (Filters.OwnerId.HasValue)
+            dbQuery = dbQuery.Where(e => e.OwnerId == UserId.Of(Filters.OwnerId.Value));
+
+        if (Filters.Status.HasValue)
+            dbQuery = dbQuery.Where(e => e.EventStatus == Filters.Status.Value);
 
         //if (Filters.FromDate.HasValue)
         //    dbQuery = dbQuery.Where(e => e.Date >= Filters.FromDate.Value);
