@@ -44,7 +44,7 @@ public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandl
         {
             if (request.ContextCarrier.AuthenticatedUser!.CanAddEvent is false)
             {
-                throw new AccessDeniedExcepion();
+                throw new AccessDeniedExcepion("Access Denied for Adding Event");
             }
         }
     }
