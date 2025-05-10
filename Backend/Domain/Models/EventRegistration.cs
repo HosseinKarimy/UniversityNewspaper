@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using Domain.Exceptions;
 using Domain.StronglyTypes;
 
 namespace Domain.Models;
@@ -29,7 +30,7 @@ public class EventRegistration
         if (isUser)
         {
             if (newStatus != RegistrationStatus.Pending && newStatus != RegistrationStatus.Cancelled)
-                throw new Exception("User can only request or cancel registration.");
+                throw new BusinessRuleViolationException("Only User can request or cancel registration.");
 
             Status = newStatus;
             return;
@@ -38,16 +39,16 @@ public class EventRegistration
         if (isEventOwner)
         {
             if (newStatus == RegistrationStatus.Cancelled)
-                throw new Exception("Only the user can cancel registration.");
+                throw new BusinessRuleViolationException("Only User can request or cancel registration.");
 
             if (Status == RegistrationStatus.Cancelled)
-                throw new Exception("Registration is already cancelled.");
+                throw new BusinessRuleViolationException("Registration is already cancelled.");
 
             Status = newStatus;
             return;
         }
 
-        throw new Exception("Access Denied.");
+        throw new BusinessRuleViolationException("Access Denied.");
     }
 
 }
