@@ -1,6 +1,7 @@
 ﻿using Application.Bazaar.BazzarHandlers.GetBanners;
 using Application.Bazaar.BazzarRepositories;
 using Application.Bazaar.DTO;
+using Application.Exceptions;
 using Domain.Models;
 using Helper.CQRS;
 
@@ -19,7 +20,7 @@ public class GetBannersCreatedByUserHandler(IBazaarUnitOfWork bannerRepository) 
         void Authorization()
         {
             if (request.ContextCarrier.AuthenticatedUser!.Id != request.UserId)
-            throw new Exception("UnAuthorized"); // TODO: Create Custom Exception for this case            
+                throw new UnauthorizedExeption();        
         }
     }
 

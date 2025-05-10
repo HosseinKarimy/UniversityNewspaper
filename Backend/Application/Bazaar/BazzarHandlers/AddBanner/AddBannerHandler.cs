@@ -1,5 +1,6 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Application.Bazaar.DTO;
+using Application.Exceptions;
 using Domain.Models;
 using Domain.StronglyTypes;
 using Helper.CQRS;
@@ -20,7 +21,7 @@ public class AddBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : ICommandHand
         {
             if (request.ContextCarrier.AuthenticatedUser!.CanAddBanner is false)
             {
-                throw new Exception("Access Denied");
+                throw new AccessDeniedExcepion("access denied for adding Banner");
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Application.Bazaar.BazzarRepositories;
+using Application.Exceptions;
 using MediatR;
 
 namespace Application.Bazaar.BazzarHandlers.DeleteBanner;
@@ -20,7 +21,7 @@ public class DeleteBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IRequestH
         void Authorization()
         {
             if (banner.OwnerId != userId)
-                throw new Exception("Unauthorized");
+                throw new UnauthorizedExeption();
         }
     }
 }

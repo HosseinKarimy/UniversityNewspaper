@@ -1,5 +1,6 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Application.Bazaar.DTO;
+using Application.Exceptions;
 using Domain.Models;
 using Domain.StronglyTypes;
 using MediatR;
@@ -21,7 +22,7 @@ public class UpdateBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHandler<
         void Authorization()
         {
             if (banner.OwnerId != userId)
-                throw new Exception("Unauthorized");
+                throw new UnauthorizedExeption();
         }
     }
 
