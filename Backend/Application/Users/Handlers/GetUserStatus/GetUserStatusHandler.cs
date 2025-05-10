@@ -1,5 +1,6 @@
 ﻿using Application.Bazaar.BazzarRepositories;
 using Application.Events.EventsRepositories;
+using Application.Exceptions;
 using Application.Users.DTO;
 using Application.Users.Repositroies;
 using Helper.CQRS;
@@ -20,7 +21,8 @@ public class GetUserStatusHandler(IUserRepository userRepository, IBazaarUnitOfW
         void Authorization()
         {
             if (request.ContextCarrier.AuthenticatedUser!.Id != request.UserId)
-                throw new Exception("Unauthorized");
+                throw new UnauthorizedExeption();
+            //TODO - access for admin to get any user status
         }
     }
 

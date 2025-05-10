@@ -1,4 +1,5 @@
-﻿using Application.Users.Repositroies;
+﻿using Application.Exceptions;
+using Application.Users.Repositroies;
 using Domain.StronglyTypes;
 using Helper.CQRS;
 using MediatR;
@@ -26,8 +27,9 @@ public class SetUserAccessHandler(IUserRepository userRepository) : ICommandHand
 
         void Authorization()
         {
+            //TODO - Admin Authorization
             if (request.ContextCarrier.AuthenticatedUser!.Id.Value != 8800)
-                throw new Exception("Unauthorized");
+                throw new UnauthorizedExeption();
         }
     }
 }
