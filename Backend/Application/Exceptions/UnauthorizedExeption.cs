@@ -1,5 +1,5 @@
 ﻿namespace Application.Exceptions;
 
-public class UnauthorizedExeption() : Exception("Unauthorized")
+public class UnauthorizedExeption(string? Message = null) : Exception(Message ?? "Unauthorized")
 {
 }
