@@ -1,7 +1,7 @@
 ﻿using Application.Events.DTOs;
+using FluentValidation;
 using Helper.CQRS;
 using Helper.HelperModels;
-using MediatR;
 
 namespace Application.Events.EventsHandlers.AddEvent;
 
@@ -10,3 +10,10 @@ public record AddEventCommand(AddOrUpdateEventDto EventDto) : ICommand<RequestRe
     public ImportantHttpContextCarrier ContextCarrier { get ; set; } = new();
 }
 
+public class AddEventValidation : AbstractValidator<AddEventCommand>
+{
+    public AddEventValidation()
+    {
+        RuleFor(p => p.EventDto.Title).NotEmpty().MinimumLength(2);
+    }
+}
