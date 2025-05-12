@@ -15,15 +15,11 @@ public static class JsuContractTemplate
             };
     }
 
-    public static object FromRequestResult(object result)
+    public static object FromRequestResult<T>(RequestResult<T> result)
     {
         if (result is null) return new { IsSuccess = false, Message = "Null result" };
 
-        var type = result.GetType();
-        var isPaginated = type.IsGenericType &&
-                          type.GetGenericTypeDefinition() == typeof(PaginatedResult<>);
-
-        if (isPaginated)
+        if (result.GetType().GetGenericTypeDefinition() == typeof(PaginatedResult<>))
         {
             dynamic dyn = result;
             return new
@@ -36,17 +32,12 @@ public static class JsuContractTemplate
             };
         }
 
-        if (result is RequestResult<dynamic> dynResult)
+        return new
         {
-            return new
-            {
-                dynResult.IsSuccess,
-                dynResult.Data,
-                dynResult.Message
-            };
-        }
-
-        return new { IsSuccess = false, Message = "Unknown result type" };
+            result.IsSuccess,
+            result.Data,
+            result.Message
+        };
     }
 
 
