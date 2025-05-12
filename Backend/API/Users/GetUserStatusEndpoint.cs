@@ -18,7 +18,7 @@ public class GetUserStatusEndpoint : CarterModule
             var query = new GetUserStatusQuery(UserId.Of(userId));
             var result = await mediator.Send(query);
             var response = result.Adapt<UserStatusResponseDto>();
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true, response));
         }).DisableAntiforgery();
     }
 }

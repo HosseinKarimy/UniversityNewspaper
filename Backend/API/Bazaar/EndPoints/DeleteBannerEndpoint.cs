@@ -19,9 +19,9 @@ public class DeleteBannerEndpoint : CarterModule
             var command = new DeleteBannerCommand(BannerId.Of(id));
 
             //Send Command to Mediator Pipeline
-            DeleteBannerResult result = await mediator.Send<DeleteBannerResult>(command);
+            var result = await mediator.Send(command);
 
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success"));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true));
         });
 
 

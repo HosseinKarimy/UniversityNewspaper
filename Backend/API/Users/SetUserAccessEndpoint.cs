@@ -15,7 +15,7 @@ public class SetUserAccessEndpoint : CarterModule
         {
             var command = new SetUserAccessCommand(request);
             var result = await mediator.Send(command);
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success"));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true));
         }).DisableAntiforgery();
     }
 }

@@ -13,7 +13,7 @@ public class GetEventRegistrationByEventIdEndpoint : CarterModule
         {
             var query = new GetRegistrationByEventIdQuery(Domain.StronglyTypes.EventId.Of(eventId));
             var result = await mediator.Send(query);
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", result));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true, result));
         }).DisableAntiforgery();
     }
 }

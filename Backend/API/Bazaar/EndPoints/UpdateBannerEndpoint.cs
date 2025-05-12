@@ -27,7 +27,7 @@ public class UpdateBannerEndpoint : CarterModule
 
             //Return response to client
             UpdateBannerResponse response = result.Adapt<UpdateBannerResponse>();
-            return Results.Ok(JsuContractTemplate.GetContractTemplate(status: response.IsSuccess ? "Success" : "Failed" ));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(response.IsSuccess));
         }).DisableAntiforgery();
     }
 }

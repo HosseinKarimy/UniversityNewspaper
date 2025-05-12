@@ -17,7 +17,7 @@ public class DeleteEventsEndpoint : CarterModule
         {
             var query = new DeleteEventCommand(Domain.StronglyTypes.EventId.Of(id));
             var result = await mediator.Send(query);
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success"));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true));
         }).DisableAntiforgery();
 
     }

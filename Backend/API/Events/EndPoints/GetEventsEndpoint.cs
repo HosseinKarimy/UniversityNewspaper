@@ -15,7 +15,7 @@ public class GetEventsEndpoint : CarterModule
         {
             var query = new GetEventsQuery(Filters ?? new());
             var result = await mediator.Send(query);
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", result));
+            return Results.Ok(JsuContractTemplate.FromRequestResult(result));
         }).DisableAntiforgery();
     }
 }

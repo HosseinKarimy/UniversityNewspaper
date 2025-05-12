@@ -22,7 +22,7 @@ public class GetCategoriesEndpoint : CarterModule
 
             //GetMyBannersResponse response = result.Adapt<GetMyBannersResponse>();
 
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", result.CategoriesDto));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true, result.CategoriesDto));
 
         });
     }

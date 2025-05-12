@@ -5,9 +5,8 @@ using MediatR;
 
 namespace Application.Events.EventsHandlers.AddEvent;
 
-public record AddEventCommand(AddOrUpdateEventDto EventDto) : ICommand<AddEventResult>
+public record AddEventCommand(AddOrUpdateEventDto EventDto) : ICommand<RequestResult<Guid>>
 {
     public ImportantHttpContextCarrier ContextCarrier { get ; set; } = new();
 }
 
-public record AddEventResult(Guid EventId);

@@ -13,7 +13,7 @@ public class GetEventById : CarterModule
         {
             var query = new GetEventByIdQuery(Domain.StronglyTypes.EventId.Of(id));
             var result = await mediator.Send(query);
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", result));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true, result));
         }).DisableAntiforgery();
     }
 }

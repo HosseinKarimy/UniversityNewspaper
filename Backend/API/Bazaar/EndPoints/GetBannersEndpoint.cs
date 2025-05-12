@@ -23,7 +23,7 @@ public class GetBannersEndpoint : CarterModule
 
                //GetBannersResponse response = result.Adapt<GetBannersResponse>();               
 
-               return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", result));
+               return Results.Ok(JsuContractTemplate.FromRequestResult(result));
            });
 
     }

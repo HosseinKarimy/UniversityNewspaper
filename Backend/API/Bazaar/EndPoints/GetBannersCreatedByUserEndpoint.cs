@@ -22,7 +22,7 @@ public class GetBannersCreatedByUserEndpoint : CarterModule
 
             GetBannersResponse response = result.Adapt<GetBannersResponse>();
 
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", response));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true, response));
 
         });
     }

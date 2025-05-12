@@ -24,7 +24,7 @@ public class EventRegistrationEndpoint : CarterModule
             //Send Command to Mediator Pipeline
             var result = await mediator.Send(command);
 
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success"));
+            return Results.Ok(JsuContractTemplate.GetContractTemplate(true));
         }).DisableAntiforgery();
     }
 }

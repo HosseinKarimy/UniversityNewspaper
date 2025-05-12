@@ -14,6 +14,6 @@ public class GetEventsHandler(IEventsUnitOfWork eventsUnitOfWork) : IQueryHandle
             int registeredUserCount = e.Registrations?.Where(er=>er.Status == Domain.Enums.RegistrationStatus.Approved).Count() ?? 0;
             return EventDto.FromEvent(e, registeredUserCount);
         }).ToList();
-        return new PaginatedResult<EventDto>(eventsDto,request.SearchFilter.Page,request.SearchFilter.PageSize);
+        return new PaginatedResult<EventDto>(eventsDto, true ,request.SearchFilter.Page,request.SearchFilter.PageSize);
     }
 }

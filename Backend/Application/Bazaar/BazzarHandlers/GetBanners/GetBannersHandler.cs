@@ -11,6 +11,6 @@ public class GetBannersHandler(IBazaarUnitOfWork bazaarUnitOfWork) : IQueryHandl
     {
         var banners = await bazaarUnitOfWork.BannerRepository.GetFilteredBannres(request.Filters , cancellationToken);
         var bannersDto = banners.Select(b => BannerDto.FromBanner(b)).ToList();
-        return new PaginatedResult<BannerDto>(bannersDto , request.Filters.Page , request.Filters.PageSize);
+        return new PaginatedResult<BannerDto>(bannersDto ,true, request.Filters.Page , request.Filters.PageSize);
     }
 }

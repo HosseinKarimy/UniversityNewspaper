@@ -8,16 +8,16 @@ using Helper.CQRS;
 
 namespace Application.Events.EventsHandlers.AddEvent;
 
-public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandler<AddEventCommand, AddEventResult>
+public class AddEventHandler(IEventsUnitOfWork eventsUnitOfWork) : ICommandHandler<AddEventCommand, RequestResult<Guid>>
 {
-    public async Task<AddEventResult> Handle(AddEventCommand request, CancellationToken cancellationToken)
+    public async Task<RequestResult<Guid>> Handle(AddEventCommand request, CancellationToken cancellationToken)
     {
         Authorization();
 
         var newEvent = CreateNewEvent(request.EventDto, request.ContextCarrier.AuthenticatedUser!.Id.Value);
         var createEvent = await eventsUnitOfWork.EventsRepository.AddAsync(newEvent, cancellationToken);
         await eventsUnitOfWork.SaveChangesAsync(cancellationToken);
-        return new AddEventResult(createEvent.Id.Value);
+        return new RequestResult<Guid>(createEvent.Id.Value , true , "Event Added Successfuly");
 
         static Event CreateNewEvent(AddOrUpdateEventDto eventDto, int userId)
         {

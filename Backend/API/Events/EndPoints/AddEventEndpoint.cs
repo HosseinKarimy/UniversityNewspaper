@@ -39,7 +39,7 @@ public class AddEventEndpoint : CarterModule
 
             var result = await mediator.Send(command);
 
-            return Results.Ok(JsuContractTemplate.GetContractTemplate("Success", result));
+            return Results.Ok(JsuContractTemplate.FromRequestResult(result));
         }).DisableAntiforgery();
     }
 }
