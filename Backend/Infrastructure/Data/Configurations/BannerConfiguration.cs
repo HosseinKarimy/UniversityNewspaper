@@ -36,7 +36,7 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
 					  Description = "جزوه دست نویس ساختمان استاد عنایت ترم 403",
 					  Title = "جزوه ساحتمان",
 					  ImageUrl = "/image 2.png",
-					  Price = CurrencyUnit.Of((decimal)1.23)
+					  Price = CurrencyUnit.Of("صلوات")
 				} ,
 
 				new Banner(){
@@ -55,8 +55,8 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
 					  CreatedAt = DateTime.Now,
 					  Description = "آموزش خطاطی در خوابگاه",
 					  Title = "آموزش خطاطی",
-					  Price = CurrencyUnit.Of((decimal)5)
-				}
+                      Price = CurrencyUnit.Of("هزار تومن")
+                }
 		]);
     }
 }

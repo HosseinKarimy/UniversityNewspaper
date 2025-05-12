@@ -2,18 +2,13 @@
 
 public record CurrencyUnit
 {
-    public decimal Value { get; set; }
+    public string Value { get; set; }
 
-    public CurrencyUnit(decimal value) => Value = value;
+    public CurrencyUnit(string value) => Value = value;
 
-    public static CurrencyUnit Of(decimal value)
+    public static CurrencyUnit Of(string value)
     {
         ArgumentNullException.ThrowIfNull(value);
         return new CurrencyUnit(value);
-    }
-    public static CurrencyUnit Of(string value)
-    {
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(value);
-        return new CurrencyUnit(decimal.Parse(value));
     }
 }
