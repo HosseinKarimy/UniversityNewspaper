@@ -14,7 +14,8 @@ public static class DependencyInjection
             cfg =>
             {
                 cfg.AddOpenRequestPreProcessor(typeof(AuthenticationBehavior<>))
-                .AddOpenBehavior(typeof(ValidattionBehavior<,>))
+                .AddOpenBehavior(typeof(ValidationBehavior<,>))
+                .AddOpenBehavior(typeof(LoggingBehavior<,>))
                 .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
         services.AddHttpContextAccessor();
