@@ -45,13 +45,14 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
         if (isHandled)
         {
             logger.LogInformation(exception, "Handled exception: {Exception}", exception.Message);
+        } else
+        {
+            // Fallback
+            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            await httpContext.Response.WriteAsJsonAsync(JsuContractTemplate.GetContractTemplate(false, message: exception.Message), cancellationToken: cancellationToken);
+            logger.LogError(exception, "Unhandled exception: {Exception}", exception.Message);
+
         }
-
-        // Fallback
-        httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-        await httpContext.Response.WriteAsJsonAsync(JsuContractTemplate.GetContractTemplate(false, message: exception.Message), cancellationToken: cancellationToken);
-        logger.LogError(exception, "Unhandled exception: {Exception}", exception.Message);
-
         return true;
     }
 }
