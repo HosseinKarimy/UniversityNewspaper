@@ -10,7 +10,7 @@ public record BannerDto(
     Guid CategoryId,
     DateTime CreatedAt,
     string? Image,
-    decimal? Price
+    string? Price
 )
 {
     public static BannerDto FromBanner(Banner Banner)

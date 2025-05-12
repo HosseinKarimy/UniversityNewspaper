@@ -12,7 +12,7 @@ namespace API.Bazaar.EndPoints;
 public record AddOrUpdateBannerRequest(string Title, string Description, Guid CategoryId)
 {
     public IFormFile? Image { get; init; } = null;
-    public decimal? Price { get; init; } = null;
+    public string? Price { get; init; } = null;
 }
 
 public class AddBannerEndpoint : CarterModule

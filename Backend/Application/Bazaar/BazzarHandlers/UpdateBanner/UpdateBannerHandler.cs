@@ -32,6 +32,6 @@ public class UpdateBannerHandler(IBazaarUnitOfWork bazaarUow) : IRequestHandler<
         ExistingBanner.Description = UpdatedBanner.Description;
         ExistingBanner.Title = UpdatedBanner.Title;
         ExistingBanner.ImageUrl = UpdatedBanner.Image;
-        ExistingBanner.Price = UpdatedBanner.Price is null ? null : CurrencyUnit.Of(UpdatedBanner.Price.Value);
+        ExistingBanner.Price = UpdatedBanner.Price is null ? null : CurrencyUnit.Of(UpdatedBanner.Price);
     }
 }

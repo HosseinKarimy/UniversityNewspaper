@@ -35,6 +35,6 @@ public class AddBannerHandler(IBazaarUnitOfWork bazaarUnitOfWork) : ICommandHand
         Description = BannerDto.Description,
         Title = BannerDto.Title,
         ImageUrl = BannerDto.Image,
-        Price = BannerDto.Price is null ? null : CurrencyUnit.Of(BannerDto.Price.Value),
+        Price = BannerDto.Price is null ? null : CurrencyUnit.Of(BannerDto.Price),
     };
 }

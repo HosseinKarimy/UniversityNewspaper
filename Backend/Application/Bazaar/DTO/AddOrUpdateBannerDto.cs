@@ -5,5 +5,5 @@ public record AddOrUpdateBannerDto(
     string? Description,
     Guid CategoryId,
     string? Image,
-    decimal? Price
+    string? Price
 );
