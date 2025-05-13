@@ -22,7 +22,11 @@ public class MapsterConfiguration
         TypeAdapterConfig<AddOrUpdateEventRequest, AddOrUpdateEventDto>
           .NewConfig()
           .Map(dest => dest.Organizers, src => ParsingToEnum<Department>(src.Organizers))
-          .Map(dest => dest.ImageURl, src => FileHelper.SaveFile(src.Image));
+          .Map(dest => dest.ImageURl, src => FileHelper.SaveFile(src.Image))
+          .Map(dest => dest.Deadline, src => src.RegisterDeadline)
+          .Map(dest => dest.Capacity, src => src.RegisterCapacity)
+          .Map(dest => dest.Fee, src => src.RegisterFee);
+
 
         TypeAdapterConfig<EventDto, EventDto>
           .NewConfig()
